@@ -1,0 +1,77 @@
+/*Style for table (header, row and submit button)*/
+.table-purple {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.85vw;
+}
+
+.table-purple-header {
+    background-color: rgba(149, 94, 139, .8);
+    color: white;
+}
+
+.table-purple th,
+.table-purple td {
+    text-align: center;
+    padding: 1vh 0.1vw;
+}
+
+.table-purple-row:nth-child(even) {
+    background: #ECF0F1;
+}
+
+.table-purple-row:hover {
+    background: #BDC3C7;
+    color: #FFFFFF;
+}
+
+.table-purple-button {
+    padding: 0.5vh;
+    min-width: 100%;
+    border: 0.1em solid rgba(149, 94, 139, .8);
+    background-color: transparent;
+    border-radius: 0.15em;
+    transition: all 0.35s;
+    font-family: 'Lora', serif;
+    margin: 0.15vh;
+    font-size: 0.8vw;
+}
+
+.table-purple-button:hover {
+    color: white;
+    background-color: rgba(149, 94, 139, .8);
+    cursor: pointer;
+}
+
+#filter {
+    padding: 0.2vw 0 0.2vw 0.2vw;
+    margin: 0.5vw 0 0.5vw 0.5vw;
+    display: inline-flex;
+    align-items: center;
+    float: right;
+}
+
+#filter,
+#filter > input {
+    font-size: 0.8vw !important;
+}
+
+#filter > input {
+    margin: 0.2vw 0 0.2vw 0.2vw;
+    padding: 0.1vw !important;
+    font-family: 'Lora', serif;
+}
+
+#filter > input[type=text] {
+    background-color: transparent;
+    border: 1px solid rgba(149, 94, 139, .8);
+    border-radius: 0.15em;
+}
+
+#filter > input[type=submit] {
+    min-width: 0 !important;
+}
+
+.filter-title {
+    padding-left: 1vw;
+}

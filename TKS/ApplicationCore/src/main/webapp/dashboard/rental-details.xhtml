@@ -1,0 +1,77 @@
+<ui:composition template="/WEB-INF/templates/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="rentId" value="#{rentController.rent.id}"/>
+            <f:viewAction action="#{rentController.initRent}" onPostback="true"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="rent-vm.css"/>
+        <h:outputStylesheet library="css" name="page-content.css"/>
+        <h:outputStylesheet library="css" name="information-box.css"/>
+        <h:outputStylesheet library="css" name="message.css"/>
+        <h:outputStylesheet library="css" name="page-content-inputs.css"/>
+    </ui:define>
+    <ui:define name="breadcrumbs">
+        <p:breadCrumb>
+            <p:menuitem value="#{msgs.main_page}" url="/VMRental/dashboard/index.xhtml"/>
+            <p:menuitem value="#{msgs.show_rents}" url="/VMRental/dashboard/show-rents.xhtml"/>
+            <p:menuitem value="#{msgs.rental_details}" url="/VMRental/dashboard/rental-details.xhtml">
+                <f:param name="rentId" value="#{rentController.rent.id}"/>
+            </p:menuitem>
+        </p:breadCrumb>
+    </ui:define>
+    <ui:define name="titleText">
+        <h:outputLabel value="#{msgs.rental_details}"/>
+    </ui:define>
+    <ui:define name="content">
+        <div class="pageContent-container">
+            <div class="pageContent-content box">
+                <i class="fa fa-user"/>
+                <h:outputLabel value="#{msgs.username}:"/>
+                <h:outputLabel value="#{rentController.rent.user.username}"/>
+                <h:outputLabel value="#{msgs.full_name}:"/>
+                <h:outputLabel value="#{rentController.rent.user.fullname}"/>
+            </div>
+            <div class="pageContent-content box">
+                <i class="fa fa-calendar"/>
+                <h:outputLabel value="#{msgs.start_time}:"/>
+                <h:outputLabel value="#{rentController.rent.period.startDate}">
+                    <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                </h:outputLabel>
+                <h:outputLabel value="#{msgs.end_time}:"/>
+                <h:outputLabel value="#{rentController.rent.period.endDate}">
+                    <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                </h:outputLabel>
+            </div>
+            <div class="pageContent-content box">
+                <h:panelGroup rendered="#{rentController.rent.machine.type eq 'MachineWorkstation'}">
+                    <i class="fa fa-desktop"/>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{rentController.rent.machine.type eq 'MachineGaming'}">
+                    <i class="fa fa-gamepad"/>
+                </h:panelGroup>
+                <h:outputLabel value="#{rentController.rent.machine.name}"/>
+                <h:outputLabel value="#{msgs.no_of_cores}: #{rentController.rent.machine.cores}"/>
+                <h:outputLabel value="#{msgs.ram_size}: #{rentController.rent.machine.ramSize}"/>
+                <h:outputLabel value="#{msgs.hdd_size}: #{rentController.rent.machine.hddSize}"/>
+                <h:outputLabel value="#{msgs.ssd_size}: #{rentController.rent.machine.ssdSize}"
+                               rendered="#{rentController.rent.machine.type eq 'MachineWorkstation'}"/>
+                <h:outputLabel value="#{msgs.net_cards}: #{rentController.rent.machine.netCards}"
+                               rendered="#{rentController.rent.machine.type eq 'MachineWorkstation'}"/>
+                <h:outputLabel
+                        value="#{msgs.raid_support}: #{rentController.rent.machine.raidSupport ? msgs.yes : msgs.no}"
+                        rendered="#{rentController.rent.machine.type eq 'MachineWorkstation'}"/>
+                <h:outputLabel value="#{msgs.gpu_power}: #{rentController.rent.machine.gpuPower}"
+                               rendered="#{rentController.rent.machine.type eq 'MachineGaming'}"/>
+                <h:outputLabel value="#{msgs.gpu_vram}: #{rentController.rent.machine.gpuVram}"
+                               rendered="#{rentController.rent.machine.type eq 'MachineGaming'}"/>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,77 @@
+<ui:composition template="/WEB-INF/templates/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="table.css"/>
+    </ui:define>
+    <ui:define name="breadcrumbs">
+        <p:breadCrumb>
+            <p:menuitem value="#{msgs.main_page}" url="/VMRental/dashboard/index.xhtml"/>
+            <p:menuitem value="#{msgs.show_rents}" url="/VMRental/dashboard/show-rents.xhtml"/>
+        </p:breadCrumb>
+    </ui:define>
+    <ui:define name="titleText">
+        <h:outputLabel>#{msgs.show_rents}</h:outputLabel>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="filter">
+            <h:outputText value="#{msgs.vm_name}:" styleClass="filter-title"/>
+            <h:inputText value="#{rentListController.machineFilter}"/>
+            <h:outputText value="#{msgs.username}:" rendered="#{currentUserController.ownerRole}"
+                          styleClass="filter-title"/>
+            <h:inputText rendered="#{currentUserController.ownerRole}" value="#{rentListController.userFilter}"/>
+            <h:commandButton value="#{msgs.filter}" action="#{rentListController.filter}"
+                             styleClass="table-purple-button"/>
+        </h:form>
+        <h:form id="table">
+            <h:dataTable styleClass="table-purple" value="#{rentListController.rents}" var="rent"
+                         rowClasses="table-purple-row" headerClass="table-purple-header">
+                <h:column>
+                    <f:facet name="header">#{msgs.vm_name}</f:facet>
+                    #{rent.machine.name}
+                </h:column>
+                <h:column rendered="#{currentUserController.ownerRole}">
+                    <f:facet name="header">#{msgs.username}</f:facet>
+                    #{rent.user.username}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.start_time}</f:facet>
+                    <h:outputText value="#{rent.period.startDate}">
+                        <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.end_time}</f:facet>
+                    <h:outputText value="#{rent.period.endDate}">
+                        <f:convertDateTime type="localDateTime" pattern="dd.MM.yyyy HH:mm"/>
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.status}</f:facet>
+                    <h:outputText rendered="#{rentListController.isReserved(rent)}" value="#{msgs.reserved}"/>
+                    <h:outputText rendered="#{rentListController.isInProgress(rent)}" value="#{msgs.in_progress}"/>
+                    <h:outputText rendered="#{rentListController.isFinished(rent)}" value="#{msgs.finished}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.actions}</f:facet>
+                    <h:commandButton rendered="#{rentListController.isInProgress(rent)}"
+                                     action="#{rentListController.finishRent(rent)}"
+                                     value="#{msgs.finish}"
+                                     styleClass="table-purple-button"/>
+                    <h:commandButton rendered="#{rentListController.isReserved(rent)}"
+                                     action="#{rentListController.deleteRent(rent)}"
+                                     value="#{msgs.delete}"
+                                     styleClass="table-purple-button"/>
+                    <h:button outcome="rental-details"
+                              value="#{msgs.details}"
+                              styleClass="table-purple-button">
+                        <f:param name="rentId" value="#{rent.id}"/>
+                    </h:button>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

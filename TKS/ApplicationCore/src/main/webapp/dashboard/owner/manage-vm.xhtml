@@ -1,0 +1,102 @@
+<ui:composition template="/WEB-INF/templates/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="two-columns.css"/>
+        <h:outputStylesheet library="css" name="page-content.css"/>
+        <h:outputStylesheet library="css" name="select-box.css"/>
+        <h:outputStylesheet library="css" name="page-content-inputs.css"/>
+        <h:outputStylesheet library="css" name="message.css"/>
+    </ui:define>
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="machineId" value="#{machineController.machine.id}"/>
+            <f:viewAction action="#{machineController.initMachine}" onPostback="true"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="breadcrumbs">
+        <p:breadCrumb>
+            <p:menuitem value="#{msgs.main_page}" url="/VMRental/dashboard/index.xhtml"/>
+            <p:menuitem value="#{msgs.show_vms}" url="/VMRental/dashboard/show-vms.xhtml"
+                        rendered="#{machineController.update}"/>
+            <p:menuitem value="#{machineController.update ? msgs.update_vm : msgs.create_vm}"
+                        url="/VMRental/dashboard/owner/manage-vm.xhtml">
+                <f:param name="machineId" value="#{machineController.machine.id}"
+                         disable="#{not machineController.update}"/>
+            </p:menuitem>
+        </p:breadCrumb>
+    </ui:define>
+    <ui:define name="titleText">
+        <h:outputLabel>#{machineController.update ? msgs.update_vm : msgs.create_vm}</h:outputLabel>
+    </ui:define>
+    <ui:define name="content">
+        <div class="pageContent-container">
+            <div class="pageContent-content two-columns">
+                <h:form styleClass="select-form" rendered="#{not machineController.update}">
+                    <h:selectOneMenu valueChangeListener="#{machineController.onTypeChange}"
+                                     onchange="submit()">
+                        <f:selectItem itemValue="Gaming" itemLabel="#{msgs.vm_gaming_type}"/>
+                        <f:selectItem itemValue="Workstation" itemLabel="#{msgs.vm_workstation_type}"/>
+                    </h:selectOneMenu>
+                </h:form>
+                <h:form id="machine">
+                    <div class="sideInput">
+                        <h:outputLabel value="#{msgs.vm_name}"/>
+                        <h:inputText id="vm_name"
+                                     disabled="#{machineController.update}"
+                                     value="#{machineController.update ? machineController.machine.name : machineController.machineName}"
+                                     autocomplete="off"/>
+                        <h:message for="vm_name" id="vm_name_msg" styleClass="message"/>
+                    </div>
+                    <div class="columns-container">
+                        <div class="sideInput">
+                            <h:outputLabel value="#{msgs.no_of_cores}"/>
+                            <h:inputText id="no_of_cores" value="#{machineController.machine.cores}"
+                                         converterMessage="#{val_msgs['converter.integer.message']}"/>
+                            <h:message for="no_of_cores" styleClass="message"/>
+                            <h:outputLabel value="#{msgs.ram_size}"/>
+                            <h:inputText id="ram_size" value="#{machineController.machine.ramSize}"
+                                         converterMessage="#{val_msgs['converter.integer.message']}"/>
+                            <h:message for="ram_size" styleClass="message"/>
+                            <h:outputLabel value="#{msgs.hdd_size}"/>
+                            <h:inputText id="hdd_size" value="#{machineController.machine.hddSize}"
+                                         converterMessage="#{val_msgs['converter.integer.message']}"/>
+                            <h:message for="hdd_size" styleClass="message"/>
+                        </div>
+                        <h:panelGroup layout="block" class="sideInput"
+                                      rendered="#{machineController.machine.type eq 'MachineGaming'}">
+                            <h:outputLabel value="#{msgs.gpu_power}"/>
+                            <h:inputText id="gpu_power" value="#{machineController.machineGaming.gpuPower}"
+                                         converterMessage="#{val_msgs['converter.integer.message']}"/>
+                            <h:message for="gpu_power" styleClass="message"/>
+                            <h:outputLabel value="#{msgs.gpu_vram}"/>
+                            <h:inputText id="gpu_vram" value="#{machineController.machineGaming.gpuVram}"
+                                         converterMessage="#{val_msgs['converter.integer.message']}"/>
+                            <h:message for="gpu_vram" styleClass="message"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" class="sideInput"
+                                      rendered="#{machineController.machine.type eq 'MachineWorkstation'}">
+                            <h:outputLabel value="#{msgs.ssd_size}"/>
+                            <h:inputText id="ssd_size" value="#{machineController.machineWorkstation.ssdSize}"
+                                         converterMessage="#{val_msgs['converter.integer.message']}"/>
+                            <h:message for="ssd_size" styleClass="message"/>
+                            <h:outputLabel value="#{msgs.net_cards}"/>
+                            <h:inputText id="net_cards" value="#{machineController.machineWorkstation.netCards}"
+                                         converterMessage="#{val_msgs['converter.integer.message']}"/>
+                            <h:message for="net_cards" styleClass="message"/>
+                            <h:selectBooleanCheckbox styleClass="boolean-checkbox"
+                                                     value="#{machineController.machineWorkstation.raidSupport}">
+                                <h:outputLabel value="#{msgs.raid_support}"/>
+                            </h:selectBooleanCheckbox>
+                        </h:panelGroup>
+                    </div>
+                    <h:commandButton value="#{machineController.update ? msgs.update : msgs.create}"
+                                     action="#{machineController.submit}"/>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,18 @@
+/*Style for information for user (bad value in form)*/
+.message {
+    display: block;
+    font-size: 0.8vw;
+    background-color: rgb(255, 219, 219);
+    border: 2px solid #DC143C;
+    border-radius: 4px;
+    padding: 0.2vw;
+    margin: auto;
+    height: fit-content;
+    width: fit-content;
+}
+
+.message::before {
+    content: "\f071";
+    padding-right: 0.2vw;
+    font-family: FontAwesome, serif;
+}

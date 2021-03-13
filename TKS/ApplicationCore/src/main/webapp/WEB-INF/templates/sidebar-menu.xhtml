@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ul class="menu">
+        <li class="menu-item">
+            <h:link outcome="/dashboard/index">
+                <div class="iconBlock">
+                    <i class="fa fa-home icon"/>
+                </div>
+                <h:outputLabel value="#{msgs.main_page}"/>
+            </h:link>
+        </li>
+        <h:panelGroup rendered="#{currentUserController.ownerRole}">
+            <li class="menu-item">
+                <h:link outcome="/dashboard/owner/manage-vm">
+                    <div class="iconBlock">
+                        <i class="fa fa-plus icon"/>
+                    </div>
+                    <h:outputLabel value="#{msgs.create_vm}"/>
+                </h:link>
+            </li>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{not currentUserController.adminRole}">
+            <li class="menu-item">
+                <h:link outcome="/dashboard/show-vms">
+                    <div class="iconBlock">
+                        <i class="fa fa-calendar-plus-o icon"/>
+                    </div>
+                    <h:outputLabel value="#{msgs.show_vms}"/>
+                </h:link>
+            </li>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{not currentUserController.adminRole}">
+            <li class="menu-item">
+                <h:link outcome="/dashboard/show-rents">
+                    <div class="iconBlock">
+                        <i class="fa fa-calendar icon"/>
+                    </div>
+                    <h:outputLabel value="#{msgs.show_rents}"/>
+                </h:link>
+            </li>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{currentUserController.adminRole}">
+            <li class="menu-item">
+                <h:link outcome="/dashboard/admin/manage-user">
+                    <div class="iconBlock">
+                        <i class="fa fa-user-plus icon"/>
+                    </div>
+                    <h:outputLabel value="#{msgs.create_new_user}"/>
+                </h:link>
+            </li>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{currentUserController.adminRole}">
+            <li class="menu-item">
+                <h:link outcome="/dashboard/admin/show-users">
+                    <div class="iconBlock">
+                        <i class="fa fa-users icon"/>
+                    </div>
+                    <h:outputLabel value="#{msgs.show_users}"/>
+                </h:link>
+            </li>
+        </h:panelGroup>
+        <li class="menu-item">
+            <h:link outcome="/dashboard/app-info">
+                <div class="iconBlock">
+                    <i class="fa fa-info icon"/>
+                </div>
+                <h:outputLabel value="#{msgs.app_info_title}"/>
+            </h:link>
+        </li>
+    </ul>
+</ui:composition>

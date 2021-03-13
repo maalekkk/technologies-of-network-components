@@ -1,0 +1,23 @@
+/*Select and option styles*/
+select {
+    width: min-content;
+    height: 4.5vh;
+    cursor: pointer;
+    background-color: transparent;
+    border: 2px solid rgba(149, 94, 139, .8);
+    border-radius: 6px;
+    padding: 0.5vh;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8vw;
+    text-align-last: center;
+}
+
+select:hover,
+select:focus {
+    border-color: rgba(0, 203, 169, .25);
+}
+
+option {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9vw;
+}

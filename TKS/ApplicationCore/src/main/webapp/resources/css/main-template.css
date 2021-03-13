@@ -1,0 +1,127 @@
+/*All styles for main template*/
+html, body {
+    color: rgba(255, 255, 255, .85);
+    font-size: 0.9vw;
+    height: 100%;
+    font-family: 'Lora', serif;
+    margin: auto;
+}
+
+.container {
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    display: inline-flex;
+}
+
+/*Logo + side bar menu*/
+.leftSide {
+    height: 100%;
+    font-family: 'Lora', serif;
+    float: left;
+    width: 20%;
+    background-color: white;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2050%20320%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20fill%3D%22%2300cba9%22%20fill-opacity%3D%220.15%22%20d%3D%22M54.14%2C-45.05%20C0.27%2C60.36%208.74%2C101.41%2050.21%2C320%20L-7.62%2C320%20L-0.27%2C-26.14%20Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/*Header, breadcrumbs, content page*/
+.rightSide {
+    background-color: white;
+    width: 80%;
+    height: 100%;
+}
+
+.logo {
+    height: 7%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo > img {
+    max-width: 100%;
+}
+
+.header {
+    background-color: #1C2022;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    min-height: 7vh;
+}
+
+.ui-breadcrumb {
+    background: none !important;
+    font-size: 0.6vw !important;
+    font-family: 'Lora', serif !important;
+    font-weight: 400 !important;
+    width: 100%;
+    align-self: center;
+    border: none !important;
+}
+
+.navigationInfo {
+    background-color: #1C2022;
+    min-height: 4%;
+    max-height: 4%;
+    display: flex;
+}
+
+.title {
+    background-color: #1C2022;
+    height: 11%;
+    font-weight: bold;
+    font-size: 1.8vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pageContent {
+    color: #1C2022;
+    height: 75%;
+    justify-items: center;
+    padding: 50px;
+    display: block;
+    overflow: auto;
+    background: linear-gradient(to top left, rgba(0, 203, 169, .1), rgba(255, 255, 255, .2)) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.pageContent label,
+.pageContent p {
+    float: left;
+    width: 100%;
+    align-self: center;
+    height: fit-content;
+    display: block;
+}
+
+.pageContent p {
+    font-family: 'Lora', sans-serif;
+}
+
+.pageContent label {
+    padding: 1.5vh;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.footer {
+    background-color: #1C2022;
+    color: rgba(255, 255, 255, .7);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    text-align: center;
+    font-size: 0.7vw;
+    padding: 5px;
+    line-height: 1.4;
+    width: 80%;
+}

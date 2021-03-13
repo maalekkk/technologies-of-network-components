@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <!-- NAME -->
+    <display-name>PAS 06 | VMRental Web App</display-name>
+
+    <!-- CONTEXT -->
+    <default-context-path>/VMRental</default-context-path>
+
+    <!-- LOGIN FORM REALM -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>file</realm-name>
+        <form-login-config>
+            <form-login-page>/auth/login.xhtml</form-login-page>
+            <form-error-page>/auth/login.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <!-- SECURITY ROLES -->
+    <security-role>
+        <role-name>Client</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Admin</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Owner</role-name>
+    </security-role>
+
+    <!-- SECURITY CONSTRAINTS -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Secured pages</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Authenticated pages</web-resource-name>
+            <url-pattern>/dashboard/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Client</role-name>
+            <role-name>Admin</role-name>
+            <role-name>Owner</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin pages</web-resource-name>
+            <url-pattern>/dashboard/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Owner pages</web-resource-name>
+            <url-pattern>/dashboard/owner/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Owner</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Show VMs page</web-resource-name>
+            <url-pattern>/dashboard/show-vms.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Client</role-name>
+            <role-name>Owner</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Show Rents page</web-resource-name>
+            <url-pattern>/dashboard/show-rents.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Client</role-name>
+            <role-name>Owner</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Rent VM page</web-resource-name>
+            <url-pattern>/dashboard/rent-vm.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Client</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Rental details page</web-resource-name>
+            <url-pattern>/dashboard/rental-details.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Client</role-name>
+            <role-name>Owner</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <!-- FACES SERVLET MAPPING -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
+    <!-- SESSION -->
+    <session-config>
+        <session-timeout>30</session-timeout>
+        <cookie-config>
+            <http-only>false</http-only>
+            <secure>true</secure>
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+
+    <!-- WELCOME FILE -->
+    <welcome-file-list>
+        <welcome-file>index.xhtml</welcome-file>
+    </welcome-file-list>
+
+    <!-- ERROR PAGE HANDLERS -->
+    <error-page>
+        <exception-type>java.lang.RuntimeException</exception-type>
+        <location>/dashboard/error.xhtml</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/dashboard/error.xhtml</location>
+    </error-page>
+
+    <!-- PRIMEFACES THEME -->
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>luna-blue</param-value>
+    </context-param>
+
+</web-app>

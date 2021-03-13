@@ -1,0 +1,6 @@
+/*Set the checkbox next to input of text*/
+.enable-account {
+    display: inline-flex;
+    align-items: center;
+    padding-bottom: 15px;
+}

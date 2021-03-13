@@ -1,0 +1,55 @@
+<ui:composition template="/WEB-INF/templates/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="page-content.css"/>
+        <h:outputStylesheet library="css" name="create-user.css"/>
+        <h:outputStylesheet library="css" name="page-content-inputs.css"/>
+        <h:outputStylesheet library="css" name="message.css"/>
+    </ui:define>
+    <ui:define name="metadata">
+        <f:metadata>
+            <f:viewParam name="userId" value="#{userController.user.id}"/>
+            <f:viewAction action="#{userController.initUser}" onPostback="true"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="breadcrumbs">
+        <p:breadCrumb>
+            <p:menuitem value="#{msgs.main_page}" url="/VMRental/dashboard/index.xhtml"/>
+            <p:menuitem value="#{msgs.show_users}" url="/VMRental/dashboard/admin/show-users.xhtml"
+                        rendered="#{userController.update}"/>
+            <p:menuitem value="#{userController.update ? msgs.update_user : msgs.create_new_user}"
+                        url="/VMRental/dashboard/admin/manage-user.xhtml">
+                <f:param name="userId" value="#{userController.user.id}" disable="#{not userController.update}"/>
+            </p:menuitem>
+        </p:breadCrumb>
+    </ui:define>
+    <ui:define name="titleText">
+        <h:outputLabel>#{userController.update ? msgs.update_user : msgs.create_new_user}</h:outputLabel>
+    </ui:define>
+    <ui:define name="content">
+        <div class="pageContent-container">
+            <h:form styleClass="pageContent-content">
+                <h:outputLabel value="#{msgs.username}"/>
+                <h:inputText id="login"
+                             disabled="#{userController.update}"
+                             value="#{userController.update ? userController.user.username : userController.username}"
+                             autocomplete="off"/>
+                <h:message for="login" styleClass="message"/>
+                <h:outputLabel value="#{msgs.full_name}"/>
+                <h:inputText id="fullname" value="#{userController.user.fullname}" autocomplete="off"/>
+                <h:message for="fullname" id="fullname_msg" styleClass="message"/>
+                <h:panelGroup layout="block" styleClass="enable-account">
+                    <h:selectBooleanCheckbox styleClass="boolean-checkbox" value="#{userController.user.enabled}">
+                        <h:outputLabel value="#{msgs.account_state}"/>
+                    </h:selectBooleanCheckbox>
+                </h:panelGroup>
+                <h:commandButton value="#{userController.update ? msgs.update : msgs.create}"
+                                 action="#{userController.submit}"/>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>

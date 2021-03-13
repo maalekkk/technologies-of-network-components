@@ -1,0 +1,55 @@
+<ui:composition template="/WEB-INF/templates/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="table.css"/>
+    </ui:define>
+    <ui:define name="breadcrumbs">
+        <p:breadCrumb>
+            <p:menuitem value="#{msgs.main_page}" url="/VMRental/dashboard/index.xhtml"/>
+            <p:menuitem value="#{msgs.show_users}" url="/VMRental/dashboard/admin/show-users.xhtml"/>
+        </p:breadCrumb>
+    </ui:define>
+    <ui:define name="titleText">
+        <h:outputLabel>#{msgs.show_users}</h:outputLabel>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="filter">
+            <h:outputText value="#{msgs.username}:" styleClass="filter-title"/>
+            <h:inputText value="#{userListController.userFilter}"/>
+            <h:commandButton value="#{msgs.filter}" action="#{userListController.filter}"
+                             styleClass="table-purple-button"/>
+        </h:form>
+        <h:form id="table">
+            <h:dataTable styleClass="table-purple" value="#{userListController.users}" var="user"
+                         rowClasses="table-purple-row" headerClass="table-purple-header">
+                <h:column>
+                    <f:facet name="header">#{msgs.username}</f:facet>
+                    #{user.username}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.full_name}</f:facet>
+                    #{user.fullname}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.account_state}</f:facet>
+                    <h:outputText value="#{user.enabled ? msgs.yes : msgs.no}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.actions}</f:facet>
+                    <h:commandButton action="#{userListController.changeUserActivity(user)}"
+                                     value="#{user.enabled ? msgs.disable : msgs.enable}"
+                                     styleClass="table-purple-button"/>
+                    <h:button outcome="manage-user"
+                              value="#{msgs.edit}"
+                              styleClass="table-purple-button">
+                        <f:param name="userId" value="#{user.id}"/>
+                    </h:button>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

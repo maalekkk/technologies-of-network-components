@@ -1,0 +1,97 @@
+<ui:composition template="/WEB-INF/templates/main-template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="table.css"/>
+    </ui:define>
+    <ui:define name="breadcrumbs">
+        <p:breadCrumb>
+            <p:menuitem value="#{msgs.main_page}" url="/VMRental/dashboard/index.xhtml"/>
+            <p:menuitem value="#{msgs.show_vms}" url="/VMRental/dashboard/show-vms.xhtml"/>
+        </p:breadCrumb>
+    </ui:define>
+    <ui:define name="titleText">
+        <h:outputLabel>#{msgs.show_vms}</h:outputLabel>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="filter">
+            <h:outputText value="#{msgs.vm_name}:" styleClass="filter-title"/>
+            <h:inputText value="#{machineListController.machineFilter}"/>
+            <h:commandButton value="#{msgs.filter}" action="#{machineListController.filter}"
+                             styleClass="table-purple-button"/>
+        </h:form>
+        <h:form id="table">
+            <h:dataTable styleClass="table-purple click-row" value="#{machineListController.machines}" var="machine"
+                         rowClasses="table-purple-row" headerClass="table-purple-header">
+                <h:column>
+                    <f:facet name="header">#{msgs.vm_type}</f:facet>
+                    <h:outputText rendered="#{machine.type eq 'MachineGaming'}"
+                                  value="#{msgs.vm_gaming_type}"/>
+                    <h:outputText rendered="#{machine.type eq 'MachineWorkstation'}"
+                                  value="#{msgs['vm_workstation_type']}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.vm_name}</f:facet>
+                    #{machine.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.no_of_cores}</f:facet>
+                    #{machine.cores}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.ram_size}</f:facet>
+                    #{machine.ramSize}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.hdd_size}</f:facet>
+                    #{machine.hddSize}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.ssd_size}</f:facet>
+                    <h:outputText value="#{machine.type eq 'MachineWorkstation' ? machine.ssdSize : '-'}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.net_cards}</f:facet>
+                    <h:outputText value="#{machine.type eq 'MachineWorkstation' ? machine.netCards : '-'}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.raid_support}</f:facet>
+                    <h:outputText
+                            value="#{machine.type ne 'MachineWorkstation' ? '-' : machine.raidSupport ? msgs.yes : msgs.no}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.gpu_power}</f:facet>
+                    <h:outputText value="#{machine.type eq 'MachineGaming' ? machine.gpuPower : '-'}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.gpu_vram}</f:facet>
+                    <h:outputText value="#{machine.type eq 'MachineGaming' ? machine.gpuVram : '-'}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">#{msgs.actions}</f:facet>
+                    <h:button rendered="#{currentUserController.clientRole}"
+                              outcome="rent-vm"
+                              value="#{msgs.rent}"
+                              styleClass="table-purple-button">
+                        <f:param name="machineId" value="#{machine.id}"/>
+                    </h:button>
+                    <h:button
+                            rendered="#{not machineListController.isAllocated(machine) and currentUserController.ownerRole}"
+                            outcome="owner/manage-vm"
+                            value="#{msgs.edit}"
+                            styleClass="table-purple-button">
+                        <f:param name="machineId" value="#{machine.id}"/>
+                    </h:button>
+                    <h:commandButton
+                            rendered="#{not machineListController.isAllocated(machine) and currentUserController.ownerRole}"
+                            action="#{machineListController.deleteMachine(machine)}"
+                            value="#{msgs.delete}"
+                            styleClass="table-purple-button"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

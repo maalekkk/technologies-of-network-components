@@ -1,0 +1,16 @@
+.box {
+    margin-left: 2vw;
+    display: block;
+    padding: 4px;
+    box-shadow: 0 0 12px 0 rgba(149, 94, 139, .2);
+    border-radius: 8px;
+}
+
+.box i {
+    font-size: 5vh;
+    padding: 1vh;
+}
+
+.box:hover {
+    box-shadow: 0 0 12px 0 rgba(0, 203, 169, .2);
+}

@@ -1,0 +1,15 @@
+/*Show information of current account in grid*/
+.myAccount-data {
+    display: inline-flex;
+    text-align: center;
+}
+
+.myAccount-data div {
+    display: grid;
+}
+
+.myAccount-data div p {
+    padding: 1.5vh;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}

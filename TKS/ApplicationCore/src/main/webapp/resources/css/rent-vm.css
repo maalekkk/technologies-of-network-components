@@ -1,0 +1,18 @@
+.date-picker {
+    align-self: center;
+    height: fit-content;
+    display: block;
+    margin-bottom: 2vh;
+    font-family: 'Montserrat', sans-serif;
+    border: 2px solid rgba(149, 94, 139, .8);
+}
+
+.date-picker:hover,
+.date-picker:focus {
+    border-color: rgba(0, 203, 169, .25);
+}
+
+.date-form {
+    display: block;
+    text-align: -webkit-center;
+}
