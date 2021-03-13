@@ -12,7 +12,6 @@
         <module>ApplicationCore</module>
         <module>RepositoriesAdapters</module>
         <module>ApplicationPorts</module>
-        <module>DomainModel</module>
         <module>View</module>
         <module>Rest</module>
     </modules>

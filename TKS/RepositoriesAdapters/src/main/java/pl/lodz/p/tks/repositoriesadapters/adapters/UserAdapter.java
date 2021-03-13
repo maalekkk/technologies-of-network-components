@@ -1,5 +1,6 @@
 package pl.lodz.p.tks.repositoriesadapters.adapters;
 
+import pl.lodz.p.tks.applicationports.output.User.ExistUserPort;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 import pl.lodz.p.tks.applicationports.output.User.GetUserPort;
 import pl.lodz.p.tks.applicationports.output.User.SaveUserPort;
@@ -18,7 +19,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class UserAdapter implements GetUserPort, SaveUserPort {
+public class UserAdapter implements GetUserPort, SaveUserPort, ExistUserPort {
 
     @Inject
     UserRepository userRepository;
@@ -50,5 +51,10 @@ public class UserAdapter implements GetUserPort, SaveUserPort {
     @Override
     public User saveUser(@Valid User user) {
         return UserConverter.convertUserEnt(userRepository.save(UserConverter.convertUser(user)));
+    }
+
+    @Override
+    public boolean existsUserById(UUID uuid) {
+        return userRepository.existsById(uuid);
     }
 }

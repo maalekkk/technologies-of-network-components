@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class RentAdapter implements DeleteRentPort, GetRentPort, SaveRentPort {
+public class RentAdapter implements DeleteRentPort, GetRentPort, SaveRentPort, ExistRentPort {
 
     @Inject
     RentRepository rentRepository;
@@ -50,5 +50,10 @@ public class RentAdapter implements DeleteRentPort, GetRentPort, SaveRentPort {
     @Override
     public Rent saveRent(@Valid Rent rent) {
         return RentConverter.convertRentEnt(rentRepository.save(RentConverter.convertRent(rent)));
+    }
+
+    @Override
+    public boolean existsRentById(UUID uuid) {
+        return rentRepository.existsById(uuid);
     }
 }
