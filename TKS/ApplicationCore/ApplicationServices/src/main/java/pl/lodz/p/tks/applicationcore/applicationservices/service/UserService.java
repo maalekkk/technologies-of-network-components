@@ -2,6 +2,7 @@ package pl.lodz.p.tks.applicationcore.applicationservices.service;
 
 import pl.lodz.p.tks.applicationcore.domainmodel.model.user.Role;
 import pl.lodz.p.tks.applicationcore.domainmodel.model.user.User;
+import pl.lodz.p.tks.applicationports.input.UserUseCase;
 import pl.lodz.p.tks.applicationports.output.User.ExistUserPort;
 import pl.lodz.p.tks.applicationports.output.User.GetUserPort;
 import pl.lodz.p.tks.applicationports.output.User.SaveUserPort;
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequestScoped
-public class UserService
+public class UserService implements UserUseCase
 {
     @Inject
     private GetUserPort getUserPort;

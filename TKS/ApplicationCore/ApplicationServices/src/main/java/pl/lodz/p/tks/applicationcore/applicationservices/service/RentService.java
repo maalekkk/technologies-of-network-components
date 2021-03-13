@@ -7,6 +7,7 @@ import pl.lodz.p.tks.applicationcore.domainmodel.model.rent.Period;
 import pl.lodz.p.tks.applicationcore.domainmodel.model.rent.Rent;
 import pl.lodz.p.tks.applicationcore.domainmodel.model.rent.Status;
 import pl.lodz.p.tks.applicationcore.domainmodel.model.user.User;
+import pl.lodz.p.tks.applicationports.input.RentUseCase;
 import pl.lodz.p.tks.applicationports.output.Rent.*;
 
 import javax.enterprise.context.RequestScoped;
@@ -24,7 +25,7 @@ import java.util.stream.Stream;
 import static pl.lodz.p.tks.applicationcore.domainmodel.model.rent.Status.*;
 
 @RequestScoped
-public class RentService
+public class RentService implements RentUseCase
 {
     @Inject
     private DateTimeProvider dateTimeProvider;
