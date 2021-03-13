@@ -1,6 +1,6 @@
 package pl.lodz.p.tks.applicationports.input;
 
-import pl.lodz.p.tks.applicationcore.domainmodel.model.machine.Machine;
+import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
 
 import javax.validation.Valid;
 import java.util.List;

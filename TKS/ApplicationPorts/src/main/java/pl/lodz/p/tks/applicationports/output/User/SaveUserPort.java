@@ -1,6 +1,6 @@
 package pl.lodz.p.tks.applicationports.output.User;
 
-import pl.lodz.p.tks.applicationcore.domainmodel.model.user.User;
+import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import javax.validation.Valid;
 

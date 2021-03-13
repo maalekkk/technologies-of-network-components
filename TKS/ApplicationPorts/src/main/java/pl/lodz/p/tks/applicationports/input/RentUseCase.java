@@ -1,9 +1,9 @@
 package pl.lodz.p.tks.applicationports.input;
 
-import pl.lodz.p.tks.applicationcore.domainmodel.model.machine.Machine;
-import pl.lodz.p.tks.applicationcore.domainmodel.model.rent.Rent;
-import pl.lodz.p.tks.applicationcore.domainmodel.model.rent.Status;
-import pl.lodz.p.tks.applicationcore.domainmodel.model.user.User;
+import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
+import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
+import pl.lodz.p.tks.view.domainmodel.model.rent.Status;
+import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import javax.validation.Valid;
 import java.util.List;

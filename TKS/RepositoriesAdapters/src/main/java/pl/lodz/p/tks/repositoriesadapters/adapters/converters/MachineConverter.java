@@ -1,8 +1,8 @@
 package pl.lodz.p.tks.repositoriesadapters.adapters.converters;
 
-import pl.lodz.p.tks.applicationcore.domainmodel.model.machine.Machine;
-import pl.lodz.p.tks.applicationcore.domainmodel.model.machine.MachineGaming;
-import pl.lodz.p.tks.applicationcore.domainmodel.model.machine.MachineWorkstation;
+import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
+import pl.lodz.p.tks.view.domainmodel.model.machine.MachineGaming;
+import pl.lodz.p.tks.view.domainmodel.model.machine.MachineWorkstation;
 import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineEnt;
 import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineGamingEnt;
 import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineWorkstationEnt;

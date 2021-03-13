@@ -1,18 +1,16 @@
 package pl.lodz.p.tks.repositoriesadapters.adapters;
 
-import pl.lodz.p.tks.applicationcore.domainmodel.model.machine.Machine;
+import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
 import pl.lodz.p.tks.applicationports.output.Machine.DeleteMachinePort;
 import pl.lodz.p.tks.applicationports.output.Machine.ExistMachinePort;
 import pl.lodz.p.tks.applicationports.output.Machine.GetMachinePort;
 import pl.lodz.p.tks.applicationports.output.Machine.SaveMachinePort;
 import pl.lodz.p.tks.repositoriesadapters.adapters.converters.MachineConverter;
 import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineEnt;
-import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineGamingEnt;
 import pl.lodz.p.tks.repositoriesadapters.repository.MachineRepository;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;

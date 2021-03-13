@@ -1,8 +1,6 @@
 package pl.lodz.p.tks.repositoriesadapters.adapters;
 
-import pl.lodz.p.tks.applicationcore.domainmodel.model.user.Role;
-import pl.lodz.p.tks.applicationcore.domainmodel.model.user.User;
-import pl.lodz.p.tks.applicationports.output.User.ChangeUserPort;
+import pl.lodz.p.tks.view.domainmodel.model.user.User;
 import pl.lodz.p.tks.applicationports.output.User.GetUserPort;
 import pl.lodz.p.tks.applicationports.output.User.SaveUserPort;
 import pl.lodz.p.tks.repositoriesadapters.adapters.converters.UserConverter;

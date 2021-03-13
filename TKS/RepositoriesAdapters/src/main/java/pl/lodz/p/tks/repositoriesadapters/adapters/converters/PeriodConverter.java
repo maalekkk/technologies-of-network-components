@@ -1,6 +1,6 @@
 package pl.lodz.p.tks.repositoriesadapters.adapters.converters;
 
-import pl.lodz.p.tks.applicationcore.domainmodel.model.rent.Period;
+import pl.lodz.p.tks.view.domainmodel.model.rent.Period;
 import pl.lodz.p.tks.repositoriesadapters.data.rent.PeriodEnt;
 
 public class PeriodConverter {

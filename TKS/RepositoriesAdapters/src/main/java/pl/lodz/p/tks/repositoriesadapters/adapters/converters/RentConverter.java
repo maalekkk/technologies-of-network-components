@@ -1,6 +1,6 @@
 package pl.lodz.p.tks.repositoriesadapters.adapters.converters;
 
-import pl.lodz.p.tks.applicationcore.domainmodel.model.rent.Rent;
+import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
 import pl.lodz.p.tks.repositoriesadapters.data.rent.RentEnt;
 
 public class RentConverter {
