@@ -29,6 +29,11 @@ public class MachineAdapter implements DeleteMachinePort, GetMachinePort, SaveMa
     }
 
     @Override
+    public boolean deleteById(UUID machineId) {
+        return machineRepository.deleteById(machineId);
+    }
+
+    @Override
     public Optional<Machine> findMachineById(UUID machineId) {
         return machineRepository.findById(machineId).map(MachineConverter::toDomainModel);
     }
