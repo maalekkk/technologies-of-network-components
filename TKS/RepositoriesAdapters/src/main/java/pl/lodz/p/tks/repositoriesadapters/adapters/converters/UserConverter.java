@@ -5,13 +5,13 @@ import pl.lodz.p.tks.repositoriesadapters.data.user.UserEnt;
 
 public class UserConverter {
 
-    public static User convertUserEnt(UserEnt user) {
+    public static User toDomainModel(UserEnt user) {
         User userDomainModel = new User(user.getUsername(), user.getFullname(), user.isEnabled());
         userDomainModel.setId(user.getId());
         return userDomainModel;
     }
 
-    public static UserEnt convertUser(User user) {
+    public static UserEnt fromDomainModel(User user) {
         UserEnt userRepository = new UserEnt(user.getUsername(), user.getFullname(), user.isEnabled());
         userRepository.setId(user.getId());
         return userRepository;

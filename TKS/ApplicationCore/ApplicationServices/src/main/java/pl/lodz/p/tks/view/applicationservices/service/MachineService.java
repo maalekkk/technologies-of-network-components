@@ -1,11 +1,11 @@
 package pl.lodz.p.tks.view.applicationservices.service;
 
 import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
-import pl.lodz.p.tks.applicationports.input.MachineUseCase;
-import pl.lodz.p.tks.applicationports.output.Machine.DeleteMachinePort;
-import pl.lodz.p.tks.applicationports.output.Machine.ExistMachinePort;
-import pl.lodz.p.tks.applicationports.output.Machine.GetMachinePort;
-import pl.lodz.p.tks.applicationports.output.Machine.SaveMachinePort;
+import pl.lodz.p.tks.applicationports.view.MachineUseCase;
+import pl.lodz.p.tks.applicationports.persistence.machine.DeleteMachinePort;
+import pl.lodz.p.tks.applicationports.persistence.machine.ExistMachinePort;
+import pl.lodz.p.tks.applicationports.persistence.machine.GetMachinePort;
+import pl.lodz.p.tks.applicationports.persistence.machine.SaveMachinePort;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -69,5 +69,10 @@ public class MachineService implements MachineUseCase {
     public void deleteMachine(Machine machine)
     {
         deleteMachinePort.deleteMachine(machine);
+    }
+
+    public boolean deleteMachineById(UUID machineId)
+    {
+        return deleteMachinePort.deleteById(machineId);
     }
 }

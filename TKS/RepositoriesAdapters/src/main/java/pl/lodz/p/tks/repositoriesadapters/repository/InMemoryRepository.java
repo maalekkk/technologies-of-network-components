@@ -85,4 +85,9 @@ public abstract class InMemoryRepository<T extends IdentityEnt<ID>, ID extends S
     {
         elements.clear();
     }
+
+    @Override
+    public boolean deleteById(ID id) {
+        return findById(id).map(elements::remove).orElse(false);
+    }
 }

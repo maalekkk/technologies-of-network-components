@@ -1,7 +1,7 @@
 package pl.lodz.p.tks.view.controller.machine;
 
-import pl.lodz.p.tks.applicationports.input.MachineUseCase;
-import pl.lodz.p.tks.applicationports.input.RentUseCase;
+import pl.lodz.p.tks.applicationports.view.MachineUseCase;
+import pl.lodz.p.tks.applicationports.view.RentUseCase;
 import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
 
 import javax.annotation.PostConstruct;

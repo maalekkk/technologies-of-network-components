@@ -1,9 +1,9 @@
 package pl.lodz.p.tks.repositoriesadapters.adapters;
 
-import pl.lodz.p.tks.applicationports.output.User.ExistUserPort;
+import pl.lodz.p.tks.applicationports.persistence.user.ExistUserPort;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
-import pl.lodz.p.tks.applicationports.output.User.GetUserPort;
-import pl.lodz.p.tks.applicationports.output.User.SaveUserPort;
+import pl.lodz.p.tks.applicationports.persistence.user.GetUserPort;
+import pl.lodz.p.tks.applicationports.persistence.user.SaveUserPort;
 import pl.lodz.p.tks.repositoriesadapters.adapters.converters.UserConverter;
 import pl.lodz.p.tks.repositoriesadapters.data.user.UserEnt;
 import pl.lodz.p.tks.repositoriesadapters.repository.UserRepository;
@@ -26,12 +26,12 @@ public class UserAdapter implements GetUserPort, SaveUserPort, ExistUserPort {
 
     @Override
     public Optional<User> findUserById(UUID userId) {
-        return userRepository.findById(userId).map(UserConverter::convertUserEnt);
+        return userRepository.findById(userId).map(UserConverter::toDomainModel);
     }
 
     @Override
     public Optional<User> findUserByUsername(String username) {
-        return userRepository.findByUniquePredicate(userEnt -> userEnt.getUsername().equals(username)).map(UserConverter::convertUserEnt);
+        return userRepository.findByUniquePredicate(userEnt -> userEnt.getUsername().equals(username)).map(UserConverter::toDomainModel);
     }
 
     @Override
@@ -43,14 +43,14 @@ public class UserAdapter implements GetUserPort, SaveUserPort, ExistUserPort {
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
         for (UserEnt userEnt : userRepository.findAll()) {
-            users.add(UserConverter.convertUserEnt(userEnt));
+            users.add(UserConverter.toDomainModel(userEnt));
         }
         return users;
     }
 
     @Override
     public User saveUser(@Valid User user) {
-        return UserConverter.convertUserEnt(userRepository.save(UserConverter.convertUser(user)));
+        return UserConverter.toDomainModel(userRepository.save(UserConverter.fromDomainModel(user)));
     }
 
     @Override

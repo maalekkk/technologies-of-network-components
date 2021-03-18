@@ -1,6 +1,6 @@
 package pl.lodz.p.tks.view.controller.user;
 
-import pl.lodz.p.tks.applicationports.input.UserUseCase;
+import pl.lodz.p.tks.applicationports.view.UserUseCase;
 import pl.lodz.p.tks.view.domainmodel.model.user.Role;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 

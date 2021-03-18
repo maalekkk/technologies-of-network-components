@@ -1,8 +1,8 @@
 package pl.lodz.p.tks.view.controller.rent;
 
 
-import pl.lodz.p.tks.applicationports.input.RentUseCase;
-import pl.lodz.p.tks.applicationports.input.UserUseCase;
+import pl.lodz.p.tks.applicationports.view.RentUseCase;
+import pl.lodz.p.tks.applicationports.view.UserUseCase;
 import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
 import pl.lodz.p.tks.view.domainmodel.model.rent.Status;
 import pl.lodz.p.tks.view.domainmodel.model.user.Role;

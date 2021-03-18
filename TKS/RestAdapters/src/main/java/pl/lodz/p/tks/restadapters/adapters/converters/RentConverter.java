@@ -1,0 +1,20 @@
+package pl.lodz.p.tks.restadapters.adapters.converters;
+
+
+import pl.lodz.p.tks.restadapters.data.rent.RentRest;
+import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
+
+public class RentConverter {
+
+    public static Rent toDomainModel(RentRest rentRest) {
+        Rent rent = new Rent(MachineConverter.toDomainModel(rentRest.getMachine()), UserConverter.toDomainModel(rentRest.getUser()), PeriodConverter.toDomainModel(rentRest.getPeriod()));
+        rent.setId(rent.getId());
+        return rent;
+    }
+
+    public static RentRest convertRent(Rent rent) {
+        RentRest RentRest = new RentRest(MachineConverter.fromDomainModel(rent.getMachine()), UserConverter.fromDomainModel(rent.getUser()), PeriodConverter.fromDomainModel(rent.getPeriod()));
+        RentRest.setId(rent.getId());
+        return RentRest;
+    }
+}

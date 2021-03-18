@@ -1,6 +1,6 @@
 package pl.lodz.p.tks.view.validator.unique.machinename;
 
-import pl.lodz.p.tks.applicationports.input.MachineUseCase;
+import pl.lodz.p.tks.applicationports.view.MachineUseCase;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintValidator;

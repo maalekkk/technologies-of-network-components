@@ -22,4 +22,6 @@ public interface Repository<T extends IdentityEnt<ID>, ID extends Serializable> 
     void delete(@NotNull T entity);
 
     void deleteAll();
+
+    boolean deleteById(ID id);
 }

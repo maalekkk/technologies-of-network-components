@@ -2,7 +2,7 @@ package pl.lodz.p.tks.repositoriesadapters.adapters;
 
 import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
-import pl.lodz.p.tks.applicationports.output.Rent.*;
+import pl.lodz.p.tks.applicationports.persistence.rent.*;
 import pl.lodz.p.tks.repositoriesadapters.adapters.converters.RentConverter;
 import pl.lodz.p.tks.repositoriesadapters.adapters.converters.UserConverter;
 import pl.lodz.p.tks.repositoriesadapters.repository.RentRepository;
@@ -24,17 +24,17 @@ public class RentAdapter implements DeleteRentPort, GetRentPort, SaveRentPort, E
 
     @Override
     public void deleteRent(Rent rent) {
-        rentRepository.delete(RentConverter.convertRent(rent));
+        rentRepository.delete(RentConverter.fromDomainModel(rent));
     }
 
     @Override
     public Optional<Rent> findRentById(UUID fromString) {
-        return rentRepository.findById(fromString).map(RentConverter::convertRentEnt);
+        return rentRepository.findById(fromString).map(RentConverter::toDomainModel);
     }
 
     @Override
     public List<Rent> findRentsByUser(User user) {
-        return rentRepository.findByPredicate(rentEnt -> rentEnt.getUser().equals(UserConverter.convertUser(user))).stream().map(RentConverter::convertRentEnt).collect(Collectors.toList());
+        return rentRepository.findByPredicate(rentEnt -> rentEnt.getUser().equals(UserConverter.fromDomainModel(user))).stream().map(RentConverter::toDomainModel).collect(Collectors.toList());
     }
 
     @Override
@@ -44,12 +44,12 @@ public class RentAdapter implements DeleteRentPort, GetRentPort, SaveRentPort, E
 
     @Override
     public List<Rent> getAll() {
-        return rentRepository.findAll().stream().map(RentConverter::convertRentEnt).collect(Collectors.toList());
+        return rentRepository.findAll().stream().map(RentConverter::toDomainModel).collect(Collectors.toList());
     }
 
     @Override
     public Rent saveRent(@Valid Rent rent) {
-        return RentConverter.convertRentEnt(rentRepository.save(RentConverter.convertRent(rent)));
+        return RentConverter.toDomainModel(rentRepository.save(RentConverter.fromDomainModel(rent)));
     }
 
     @Override

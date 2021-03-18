@@ -2,10 +2,10 @@ package pl.lodz.p.tks.view.applicationservices.service;
 
 import pl.lodz.p.tks.view.domainmodel.model.user.Role;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
-import pl.lodz.p.tks.applicationports.input.UserUseCase;
-import pl.lodz.p.tks.applicationports.output.User.ExistUserPort;
-import pl.lodz.p.tks.applicationports.output.User.GetUserPort;
-import pl.lodz.p.tks.applicationports.output.User.SaveUserPort;
+import pl.lodz.p.tks.applicationports.view.UserUseCase;
+import pl.lodz.p.tks.applicationports.persistence.user.ExistUserPort;
+import pl.lodz.p.tks.applicationports.persistence.user.GetUserPort;
+import pl.lodz.p.tks.applicationports.persistence.user.SaveUserPort;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
