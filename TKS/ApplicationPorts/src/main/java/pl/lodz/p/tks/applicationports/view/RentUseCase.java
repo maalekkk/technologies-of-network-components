@@ -18,6 +18,8 @@ public interface RentUseCase {
 
     List<Rent> findRentsByUser(User user);
 
+
+
     List<Rent> filterRents(List<Predicate<Rent>> filters);
 
     boolean existsRent(Rent rent);
