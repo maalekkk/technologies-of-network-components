@@ -1,17 +1,15 @@
 package pl.lodz.p.tks.repositoriesadapters.adapters;
 
 import pl.lodz.p.tks.applicationports.persistence.user.ExistUserPort;
-import pl.lodz.p.tks.view.domainmodel.model.user.User;
 import pl.lodz.p.tks.applicationports.persistence.user.GetUserPort;
 import pl.lodz.p.tks.applicationports.persistence.user.SaveUserPort;
 import pl.lodz.p.tks.repositoriesadapters.adapters.converters.UserConverter;
-import pl.lodz.p.tks.repositoriesadapters.data.user.UserEnt;
 import pl.lodz.p.tks.repositoriesadapters.repository.UserRepository;
+import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,26 +24,30 @@ public class UserAdapter implements GetUserPort, SaveUserPort, ExistUserPort {
 
     @Override
     public Optional<User> findUserById(UUID userId) {
-        return userRepository.findById(userId).map(UserConverter::toDomainModel);
+        return userRepository.findById(userId)
+                .map(UserConverter::toDomainModel);
     }
 
     @Override
     public Optional<User> findUserByUsername(String username) {
-        return userRepository.findByUniquePredicate(userEnt -> userEnt.getUsername().equals(username)).map(UserConverter::toDomainModel);
+        return userRepository.findByUniquePredicate(userEnt -> userEnt.getUsername().equals(username))
+                .map(UserConverter::toDomainModel);
     }
 
     @Override
     public List<User> findByPredicate(Predicate<User> predicate) {
-        return getAll().stream().filter(predicate).collect(Collectors.toList());
+        return getAll()
+                .stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<User> getAll() {
-        List<User> users = new ArrayList<>();
-        for (UserEnt userEnt : userRepository.findAll()) {
-            users.add(UserConverter.toDomainModel(userEnt));
-        }
-        return users;
+        return userRepository.findAll()
+                .stream()
+                .map(UserConverter::toDomainModel)
+                .collect(Collectors.toList());
     }
 
     @Override

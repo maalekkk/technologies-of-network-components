@@ -68,13 +68,13 @@ public class RentServiceTest {
                 .thenAnswer((InvocationOnMock inv) -> rents.stream().filter(x -> x.getId().equals(inv.getArguments()[0])).findFirst());
 
         // SaveRentPort
-        Mockito.when(saveRentPort.saveRent(Matchers.any())).thenAnswer( (InvocationOnMock inv) -> {
+        Mockito.when(saveRentPort.saveRent(Matchers.any())).thenAnswer((InvocationOnMock inv) -> {
             Rent m = (Rent) (inv.getArguments()[0]);
-            if(m.getId() == null) {
+            if (m.getId() == null) {
                 m.setId(UUID.randomUUID());
             }
             boolean exist = rents.stream().anyMatch(x -> x.getId().equals(m.getId()));
-            if(exist) {
+            if (exist) {
                 rents = rents.stream().filter(x -> !(x.getId().equals(m.getId()))).collect(Collectors.toList());
             }
             rents.add(m);
@@ -83,13 +83,13 @@ public class RentServiceTest {
 
         // DeleteRentPort
         Mockito.doAnswer(x -> {
-            Rent r = (Rent)(x.getArguments()[0]);
+            Rent r = (Rent) (x.getArguments()[0]);
             rents = rents.stream().filter(z -> !(z.getId().equals(r.getId()))).collect(Collectors.toList());
             return r;
         }).when(deleteRentPort).deleteRent(Mockito.isA(Rent.class));
 
         // ExistRentPort
-        Mockito.when(existRentPort.existsRentById(Matchers.any())).thenAnswer( (InvocationOnMock inv) -> {
+        Mockito.when(existRentPort.existsRentById(Matchers.any())).thenAnswer((InvocationOnMock inv) -> {
             UUID uuid = (UUID) (inv.getArguments()[0]);
             return rents.stream().anyMatch(x -> x.getId().equals(uuid));
         });

@@ -6,19 +6,16 @@ import org.junit.runner.RunWith;
 import org.mockito.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Answer;
 import pl.lodz.p.tks.applicationports.persistence.machine.DeleteMachinePort;
 import pl.lodz.p.tks.applicationports.persistence.machine.ExistMachinePort;
 import pl.lodz.p.tks.applicationports.persistence.machine.GetMachinePort;
 import pl.lodz.p.tks.applicationports.persistence.machine.SaveMachinePort;
-import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineGamingEnt;
 import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
 import pl.lodz.p.tks.view.domainmodel.model.machine.MachineGaming;
 import pl.lodz.p.tks.view.domainmodel.model.machine.MachineWorkstation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -59,13 +56,13 @@ public class MachineServiceTest {
                 .thenAnswer((InvocationOnMock inv) -> machines.stream().filter(x -> x.getName().equals(inv.getArguments()[0])).findFirst());
 
         // SaveMachinePort
-        Mockito.when(saveMachinePort.saveMachine(Matchers.any())).thenAnswer( (InvocationOnMock inv) -> {
+        Mockito.when(saveMachinePort.saveMachine(Matchers.any())).thenAnswer((InvocationOnMock inv) -> {
             Machine m = (Machine) (inv.getArguments()[0]);
-            if(m.getId() == null) {
+            if (m.getId() == null) {
                 m.setId(UUID.randomUUID());
             }
             boolean exist = machines.stream().anyMatch(x -> x.getId().equals(m.getId()));
-            if(exist) {
+            if (exist) {
                 machines = machines.stream().filter(x -> !(x.getId().equals(m.getId()))).collect(Collectors.toList());
             }
             machines.add(m);
@@ -73,13 +70,13 @@ public class MachineServiceTest {
         });
 
         // DeleteMachinePort
-        Mockito.when(deleteMachinePort.deleteById(Matchers.any())).thenAnswer( (InvocationOnMock inv) -> {
+        Mockito.when(deleteMachinePort.deleteById(Matchers.any())).thenAnswer((InvocationOnMock inv) -> {
             UUID uuid = (UUID) (inv.getArguments()[0]);
             return machines.removeIf(x -> x.getId().equals(uuid));
         });
 
         // ExistMachinePort
-        Mockito.when(existMachinePort.existsMachineById(Matchers.any())).thenAnswer( (InvocationOnMock inv) -> {
+        Mockito.when(existMachinePort.existsMachineById(Matchers.any())).thenAnswer((InvocationOnMock inv) -> {
             UUID uuid = (UUID) (inv.getArguments()[0]);
             return machines.stream().anyMatch(x -> x.getId().equals(uuid));
         });

@@ -4,31 +4,26 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class PeriodEnt implements Serializable
-{
+public class PeriodEnt implements Serializable {
     @NotNull
     private LocalDateTime startDate;
 
     @NotNull
     private LocalDateTime endDate;
 
-    public LocalDateTime getStartDate()
-    {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate)
-    {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate()
-    {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate)
-    {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 }

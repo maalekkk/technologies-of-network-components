@@ -16,8 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RequestScoped
-public class UserService implements UserUseCase
-{
+public class UserService implements UserUseCase {
     @Inject
     private GetUserPort getUserPort;
 
@@ -30,60 +29,48 @@ public class UserService implements UserUseCase
     @Inject
     private HttpServletRequest request;
 
-    public User saveUser(@Valid User user)
-    {
+    public User saveUser(@Valid User user) {
         return saveUserPort.saveUser(user);
     }
 
-    public Optional<User> findUserById(UUID userId)
-    {
+    public Optional<User> findUserById(UUID userId) {
         return getUserPort.findUserById(userId);
     }
 
-    public Optional<User> findUserByUsername(String username)
-    {
+    public Optional<User> findUserByUsername(String username) {
         return getUserPort.findUserByUsername(username);
     }
 
-    public List<User> filterUserByUsername(String username)
-    {
+    public List<User> filterUserByUsername(String username) {
         return getUserPort.findByPredicate(user -> user.getUsername().contains(username));
     }
 
-    public User getCurrentUser()
-    {
+    public User getCurrentUser() {
         return findUserByUsername(request.getRemoteUser()).orElseThrow(IllegalStateException::new);
     }
 
-    public Role getCurrentRole()
-    {
-        if (request.isUserInRole(Role.Client.name()))
-        {
+    public Role getCurrentRole() {
+        if (request.isUserInRole(Role.Client.name())) {
             return Role.Client;
         }
-        if (request.isUserInRole(Role.Admin.name()))
-        {
+        if (request.isUserInRole(Role.Admin.name())) {
             return Role.Admin;
         }
-        if (request.isUserInRole(Role.Owner.name()))
-        {
+        if (request.isUserInRole(Role.Owner.name())) {
             return Role.Owner;
         }
         return null;
     }
 
-    public boolean existsUser(User user)
-    {
+    public boolean existsUser(User user) {
         return existUserPort.existsUserById(user.getId());
     }
 
-    public List<User> getAll()
-    {
+    public List<User> getAll() {
         return getUserPort.getAll();
     }
 
-    public void changeUserActivity(User user)
-    {
+    public void changeUserActivity(User user) {
         user.setEnabled(!user.isEnabled());
         saveUserPort.saveUser(user);
     }

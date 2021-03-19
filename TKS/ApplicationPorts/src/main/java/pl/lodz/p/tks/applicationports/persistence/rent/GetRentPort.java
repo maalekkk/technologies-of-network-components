@@ -9,12 +9,11 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 public interface GetRentPort {
-    public Optional<Rent> findRentById(UUID fromString);
+    Optional<Rent> findRentById(UUID fromString);
 
-    public List<Rent> findRentsByUser(User user);
+    List<Rent> findRentsByUser(User user);
 
-    public List<Rent> findByPredicate(Predicate<Rent> predicate);
+    List<Rent> findByPredicate(Predicate<Rent> predicate);
 
-    public List<Rent> getAll();
-
+    List<Rent> getAll();
 }

@@ -26,5 +26,4 @@ public interface UserUseCase {
     public List<User> getAll();
 
     public void changeUserActivity(User user);
-
 }

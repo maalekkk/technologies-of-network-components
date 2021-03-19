@@ -9,16 +9,13 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @ApplicationScoped
-public class UserRepository extends InMemoryRepository<@Valid UserEnt, UUID>
-{
-    public UserRepository()
-    {
+public class UserRepository extends InMemoryRepository<@Valid UserEnt, UUID> {
+    public UserRepository() {
         super(new UuidGenerator());
     }
 
     @PostConstruct
-    private void init()
-    {
+    private void init() {
         UserEnt u1 = new UserEnt("Nawrok", "Sebastian Nawrocki", true);
         UserEnt u2 = new UserEnt("Blazz", "Maciej Błażewicz", true);
         UserEnt u3 = new UserEnt("Malek", "Bartłomiej Małkowski", true);

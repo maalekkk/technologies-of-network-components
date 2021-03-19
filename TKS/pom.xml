@@ -13,7 +13,7 @@
         <module>RepositoriesAdapters</module>
         <module>ApplicationPorts</module>
         <module>View</module>
-        <module>Rest</module>
+        <module>RestAdapters</module>
     </modules>
 
     <properties>

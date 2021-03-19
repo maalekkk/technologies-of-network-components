@@ -7,8 +7,7 @@ import pl.lodz.p.tks.repositoriesadapters.data.user.UserEnt;
 
 import javax.validation.Valid;
 
-public class RentEnt extends EntityEnt
-{
+public class RentEnt extends EntityEnt {
     @Valid
     private MachineEnt machine;
 
@@ -18,45 +17,37 @@ public class RentEnt extends EntityEnt
     @Valid
     private PeriodEnt period;
 
-    public RentEnt()
-    {
+    public RentEnt() {
         this.period = new PeriodEnt();
     }
 
-    public RentEnt(MachineEnt machine, UserEnt user, PeriodEnt period)
-    {
+    public RentEnt(MachineEnt machine, UserEnt user, PeriodEnt period) {
         this.machine = machine;
         this.user = user;
         this.period = period;
     }
 
-    public MachineEnt getMachine()
-    {
+    public MachineEnt getMachine() {
         return machine;
     }
 
-    public void setMachine(MachineEnt machine)
-    {
+    public void setMachine(MachineEnt machine) {
         this.machine = machine;
     }
 
-    public UserEnt getUser()
-    {
+    public UserEnt getUser() {
         return user;
     }
 
-    public void setUser(UserEnt user)
-    {
+    public void setUser(UserEnt user) {
         this.user = user;
     }
 
-    public PeriodEnt getPeriod()
-    {
+    public PeriodEnt getPeriod() {
         return period;
     }
 
-    public void setPeriod(PeriodEnt period)
-    {
+    public void setPeriod(PeriodEnt period) {
         this.period = period;
     }
 }

@@ -9,11 +9,11 @@ import java.util.function.Predicate;
 
 public interface GetUserPort {
 
-    public Optional<User> findUserById(UUID userId);
+    Optional<User> findUserById(UUID userId);
 
-    public Optional<User> findUserByUsername(String username);
+    Optional<User> findUserByUsername(String username);
 
-    public List<User> findByPredicate(Predicate<User> predicate);
+    List<User> findByPredicate(Predicate<User> predicate);
 
-    public List<User> getAll();
+    List<User> getAll();
 }

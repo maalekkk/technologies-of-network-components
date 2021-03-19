@@ -3,31 +3,25 @@ package pl.lodz.p.tks.repositoriesadapters.data;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class EntityEnt implements IdentityEnt<UUID>
-{
+public abstract class EntityEnt implements IdentityEnt<UUID> {
     private UUID id;
 
     @Override
-    public UUID getId()
-    {
+    public UUID getId() {
         return id;
     }
 
     @Override
-    public void setId(UUID id)
-    {
+    public void setId(UUID id) {
         this.id = id;
     }
 
     @Override
-    public boolean equals(Object o)
-    {
-        if (this == o)
-        {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass())
-        {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
@@ -36,8 +30,7 @@ public abstract class EntityEnt implements IdentityEnt<UUID>
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Objects.hash(id);
     }
 }

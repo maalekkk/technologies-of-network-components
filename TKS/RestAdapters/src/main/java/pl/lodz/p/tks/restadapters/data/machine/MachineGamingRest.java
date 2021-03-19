@@ -3,8 +3,7 @@ package pl.lodz.p.tks.restadapters.data.machine;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class MachineGamingRest extends MachineRest
-{
+public class MachineGamingRest extends MachineRest {
     @Min(1)
     @NotNull
     private Integer gpuPower;
@@ -13,34 +12,28 @@ public class MachineGamingRest extends MachineRest
     @NotNull
     private Integer gpuVram;
 
-    public MachineGamingRest()
-    {
+    public MachineGamingRest() {
     }
 
-    public MachineGamingRest(String name, Integer cores, Integer ramSize, Integer hddSize, Integer gpuPower, Integer gpuVram)
-    {
+    public MachineGamingRest(String name, Integer cores, Integer ramSize, Integer hddSize, Integer gpuPower, Integer gpuVram) {
         super(name, cores, ramSize, hddSize);
         this.gpuPower = gpuPower;
         this.gpuVram = gpuVram;
     }
 
-    public Integer getGpuPower()
-    {
+    public Integer getGpuPower() {
         return gpuPower;
     }
 
-    public void setGpuPower(Integer gpuPower)
-    {
+    public void setGpuPower(Integer gpuPower) {
         this.gpuPower = gpuPower;
     }
 
-    public Integer getGpuVram()
-    {
+    public Integer getGpuVram() {
         return gpuVram;
     }
 
-    public void setGpuVram(Integer gpuVram)
-    {
+    public void setGpuVram(Integer gpuVram) {
         this.gpuVram = gpuVram;
     }
 }

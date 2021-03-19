@@ -6,17 +6,14 @@ import javax.faces.context.FacesContext;
 import java.util.ResourceBundle;
 
 @RequestScoped
-public class MessageProvider
-{
+public class MessageProvider {
     private final FacesContext context = FacesContext.getCurrentInstance();
 
-    public String getMessage(String bundle, String key)
-    {
+    public String getMessage(String bundle, String key) {
         return ResourceBundle.getBundle(bundle, context.getViewRoot().getLocale()).getString(key);
     }
 
-    public void addMessage(String location, String msg, FacesMessage.Severity type)
-    {
+    public void addMessage(String location, String msg, FacesMessage.Severity type) {
         FacesMessage message = new FacesMessage(type, msg, null);
         context.addMessage(location, message);
     }

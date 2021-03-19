@@ -12,27 +12,22 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public abstract class InMemoryRepository<T extends IdentityEnt<ID>, ID extends Serializable> implements Repository<T, ID>
-{
+public abstract class InMemoryRepository<T extends IdentityEnt<ID>, ID extends Serializable> implements Repository<T, ID> {
     private final PrimaryKeyGenerator<ID> generator;
     private final List<T> elements = new CopyOnWriteArrayList<>();
 
-    public InMemoryRepository(PrimaryKeyGenerator<ID> generator)
-    {
+    public InMemoryRepository(PrimaryKeyGenerator<ID> generator) {
         this.generator = generator;
     }
 
     @Override
-    public <S extends T> S save(@NotNull S entity)
-    {
-        if (entity.getId() == null)
-        {
+    public <S extends T> S save(@NotNull S entity) {
+        if (entity.getId() == null) {
             entity.setId(generator.getId());
             elements.add(entity);
             return entity;
         }
-        if (elements.contains(entity))
-        {
+        if (elements.contains(entity)) {
             int index = elements.indexOf(entity);
             elements.set(index, entity);
             return entity;
@@ -41,48 +36,40 @@ public abstract class InMemoryRepository<T extends IdentityEnt<ID>, ID extends S
     }
 
     @Override
-    public boolean existsById(ID id)
-    {
+    public boolean existsById(ID id) {
         return elements.stream().anyMatch(e -> e.getId().equals(id));
     }
 
     @Override
-    public Optional<T> findById(ID id)
-    {
+    public Optional<T> findById(ID id) {
         return elements.stream().filter(e -> e.getId().equals(id)).findFirst();
     }
 
-    public Optional<T> findByUniquePredicate(Predicate<T> predicate)
-    {
+    public Optional<T> findByUniquePredicate(Predicate<T> predicate) {
         return elements.stream().filter(predicate).findFirst();
     }
 
-    public List<T> findByPredicate(Predicate<T> predicate)
-    {
+    public List<T> findByPredicate(Predicate<T> predicate) {
         return elements.stream().filter(predicate).collect(Collectors.toList());
     }
 
     @Override
-    public List<T> findAll()
-    {
+    public List<T> findAll() {
         return new ArrayList<>(elements);
     }
 
     @Override
-    public long count()
-    {
+    public long count() {
         return elements.size();
     }
 
     @Override
-    public void delete(@NotNull T entity)
-    {
+    public void delete(@NotNull T entity) {
         elements.remove(entity);
     }
 
     @Override
-    public void deleteAll()
-    {
+    public void deleteAll() {
         elements.clear();
     }
 

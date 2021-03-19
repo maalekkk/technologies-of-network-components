@@ -29,22 +29,32 @@ public class RentAdapter implements DeleteRentPort, GetRentPort, SaveRentPort, E
 
     @Override
     public Optional<Rent> findRentById(UUID fromString) {
-        return rentRepository.findById(fromString).map(RentConverter::toDomainModel);
+        return rentRepository.findById(fromString)
+                .map(RentConverter::toDomainModel);
     }
 
     @Override
     public List<Rent> findRentsByUser(User user) {
-        return rentRepository.findByPredicate(rentEnt -> rentEnt.getUser().equals(UserConverter.fromDomainModel(user))).stream().map(RentConverter::toDomainModel).collect(Collectors.toList());
+        return rentRepository.findByPredicate(rentEnt -> rentEnt.getUser().equals(UserConverter.fromDomainModel(user)))
+                .stream()
+                .map(RentConverter::toDomainModel)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Rent> findByPredicate(Predicate<Rent> predicate) {
-        return getAll().stream().filter(predicate).collect(Collectors.toList());
+        return getAll()
+                .stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Rent> getAll() {
-        return rentRepository.findAll().stream().map(RentConverter::toDomainModel).collect(Collectors.toList());
+        return rentRepository.findAll()
+                .stream()
+                .map(RentConverter::toDomainModel)
+                .collect(Collectors.toList());
     }
 
     @Override

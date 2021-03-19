@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface GetMachinePort {
     Optional<Machine> findMachineById(UUID machineId);
 
-    public Optional<Machine> findMachineByName(String name);
+    Optional<Machine> findMachineByName(String name);
 
-    public List<Machine> getAll();
+    List<Machine> getAll();
 }

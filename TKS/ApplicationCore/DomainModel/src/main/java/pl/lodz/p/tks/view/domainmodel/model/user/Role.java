@@ -1,7 +1,6 @@
 package pl.lodz.p.tks.view.domainmodel.model.user;
 
-public enum Role
-{
+public enum Role {
     Client,
     Admin,
     Owner

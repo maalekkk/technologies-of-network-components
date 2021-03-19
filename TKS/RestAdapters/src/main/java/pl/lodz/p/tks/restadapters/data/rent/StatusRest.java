@@ -1,7 +1,6 @@
 package pl.lodz.p.tks.restadapters.data.rent;
 
-public enum StatusRest
-{
+public enum StatusRest {
     RESERVED,
     IN_PROGRESS,
     FINISHED

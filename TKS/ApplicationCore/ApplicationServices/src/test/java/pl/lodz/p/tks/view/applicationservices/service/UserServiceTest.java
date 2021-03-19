@@ -52,13 +52,13 @@ public class UserServiceTest {
                 .thenAnswer((InvocationOnMock inv) -> users.stream().filter(x -> x.getUsername().equals(inv.getArguments()[0])).findFirst());
 
         // SaveUserPort
-        Mockito.when(saveUserPort.saveUser(Matchers.any())).thenAnswer( (InvocationOnMock inv) -> {
+        Mockito.when(saveUserPort.saveUser(Matchers.any())).thenAnswer((InvocationOnMock inv) -> {
             User m = (User) (inv.getArguments()[0]);
-            if(m.getId() == null) {
+            if (m.getId() == null) {
                 m.setId(UUID.randomUUID());
             }
             boolean exist = users.stream().anyMatch(x -> x.getId().equals(m.getId()));
-            if(exist) {
+            if (exist) {
                 users = users.stream().filter(x -> !(x.getId().equals(m.getId()))).collect(Collectors.toList());
             }
             users.add(m);
@@ -66,7 +66,7 @@ public class UserServiceTest {
         });
 
         // ExistUserPort
-        Mockito.when(existUserPort.existsUserById(Matchers.any())).thenAnswer( (InvocationOnMock inv) -> {
+        Mockito.when(existUserPort.existsUserById(Matchers.any())).thenAnswer((InvocationOnMock inv) -> {
             UUID uuid = (UUID) (inv.getArguments()[0]);
             return users.stream().anyMatch(x -> x.getId().equals(uuid));
         });

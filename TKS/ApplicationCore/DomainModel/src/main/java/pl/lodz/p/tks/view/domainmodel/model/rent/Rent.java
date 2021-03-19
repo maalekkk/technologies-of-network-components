@@ -6,8 +6,7 @@ import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import javax.validation.Valid;
 
-public class Rent extends Entity
-{
+public class Rent extends Entity {
     @Valid
     private Machine machine;
 
@@ -17,45 +16,37 @@ public class Rent extends Entity
     @Valid
     private Period period;
 
-    public Rent()
-    {
+    public Rent() {
         this.period = new Period();
     }
 
-    public Rent(Machine machine, User user, Period period)
-    {
+    public Rent(Machine machine, User user, Period period) {
         this.machine = machine;
         this.user = user;
         this.period = period;
     }
 
-    public Machine getMachine()
-    {
+    public Machine getMachine() {
         return machine;
     }
 
-    public void setMachine(Machine machine)
-    {
+    public void setMachine(Machine machine) {
         this.machine = machine;
     }
 
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Period getPeriod()
-    {
+    public Period getPeriod() {
         return period;
     }
 
-    public void setPeriod(Period period)
-    {
+    public void setPeriod(Period period) {
         this.period = period;
     }
 }

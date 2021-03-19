@@ -11,11 +11,11 @@ public class PeriodConverter {
         period.setEndDate(periodEnt.getEndDate());
         return period;
     }
+
     public static PeriodEnt fromDomainModel(Period period) {
         PeriodEnt periodEnt = new PeriodEnt();
         periodEnt.setStartDate(period.getStartDate());
         periodEnt.setEndDate(period.getEndDate());
         return periodEnt;
     }
-
 }

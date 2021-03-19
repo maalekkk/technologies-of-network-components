@@ -7,8 +7,7 @@ import pl.lodz.p.tks.restadapters.data.user.UserRest;
 
 import javax.validation.Valid;
 
-public class RentRest extends EntityRest
-{
+public class RentRest extends EntityRest {
     @Valid
     private MachineRest machine;
 
@@ -18,45 +17,37 @@ public class RentRest extends EntityRest
     @Valid
     private PeriodRest period;
 
-    public RentRest()
-    {
+    public RentRest() {
         this.period = new PeriodRest();
     }
 
-    public RentRest(MachineRest machine, UserRest user, PeriodRest period)
-    {
+    public RentRest(MachineRest machine, UserRest user, PeriodRest period) {
         this.machine = machine;
         this.user = user;
         this.period = period;
     }
 
-    public MachineRest getMachine()
-    {
+    public MachineRest getMachine() {
         return machine;
     }
 
-    public void setMachine(MachineRest machine)
-    {
+    public void setMachine(MachineRest machine) {
         this.machine = machine;
     }
 
-    public UserRest getUser()
-    {
+    public UserRest getUser() {
         return user;
     }
 
-    public void setUser(UserRest user)
-    {
+    public void setUser(UserRest user) {
         this.user = user;
     }
 
-    public PeriodRest getPeriod()
-    {
+    public PeriodRest getPeriod() {
         return period;
     }
 
-    public void setPeriod(PeriodRest period)
-    {
+    public void setPeriod(PeriodRest period) {
         this.period = period;
     }
 }

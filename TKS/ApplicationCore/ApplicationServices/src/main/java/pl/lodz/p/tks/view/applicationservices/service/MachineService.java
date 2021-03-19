@@ -30,49 +30,41 @@ public class MachineService implements MachineUseCase {
     private ExistMachinePort existMachinePort;
 
     @Override
-    public Machine saveMachine(@Valid Machine machine)
-    {
+    public Machine saveMachine(@Valid Machine machine) {
         return saveMachinePort.saveMachine(machine);
     }
 
     @Override
-    public Optional<Machine> findMachineById(UUID machineId)
-    {
+    public Optional<Machine> findMachineById(UUID machineId) {
         return getMachinePort.findMachineById(machineId);
     }
 
     @Override
-    public Optional<Machine> findMachineByName(String name)
-    {
+    public Optional<Machine> findMachineByName(String name) {
         return getMachinePort.findMachineByName(name);
     }
 
     @Override
-    public List<Machine> filterMachineByName(String name)
-    {
+    public List<Machine> filterMachineByName(String name) {
         return getAll().stream().filter(machine -> machine.getName().equals(name)).collect(Collectors.toList());
     }
 
     @Override
-    public boolean existsMachine(Machine machine)
-    {
+    public boolean existsMachine(Machine machine) {
         return existMachinePort.existsMachineById(machine.getId());
     }
 
     @Override
-    public List<Machine> getAll()
-    {
+    public List<Machine> getAll() {
         return getMachinePort.getAll();
     }
 
     @Override
-    public void deleteMachine(Machine machine)
-    {
+    public void deleteMachine(Machine machine) {
         deleteMachinePort.deleteMachine(machine);
     }
 
-    public boolean deleteMachineById(UUID machineId)
-    {
+    public boolean deleteMachineById(UUID machineId) {
         return deleteMachinePort.deleteById(machineId);
     }
 }
