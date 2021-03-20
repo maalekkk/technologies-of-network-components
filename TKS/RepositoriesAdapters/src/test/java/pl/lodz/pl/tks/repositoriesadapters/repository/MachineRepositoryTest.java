@@ -12,16 +12,17 @@ import java.util.UUID;
 public class MachineRepositoryTest {
 
     private MachineRepository machineRepository;
+    private MachineGamingEnt machine;
 
     @Before
     public void init() {
         machineRepository = new MachineRepository();
+        machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
     }
 
     @Test
     public void findAllTest() {
         Assert.assertTrue(machineRepository.findAll().isEmpty());
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         Assert.assertEquals(machineRepository.findAll().get(0), machine);
         Assert.assertFalse(machineRepository.findAll().isEmpty());
@@ -29,7 +30,6 @@ public class MachineRepositoryTest {
 
     @Test
     public void findByIdTest() {
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         Assert.assertEquals(machineRepository.findById(machine.getId()).orElseThrow(), machine);
         Assert.assertTrue(machineRepository.findById(UUID.randomUUID()).isEmpty());
@@ -37,7 +37,6 @@ public class MachineRepositoryTest {
 
     @Test
     public void existByIdTest() {
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         Assert.assertTrue(machineRepository.existsById(machine.getId()));
         Assert.assertFalse(machineRepository.existsById(UUID.randomUUID()));
@@ -46,7 +45,6 @@ public class MachineRepositoryTest {
     @Test
     public void countTest() {
         Assert.assertEquals(machineRepository.count(), 0);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         Assert.assertEquals(machineRepository.count(), 1);
     }
@@ -54,7 +52,6 @@ public class MachineRepositoryTest {
     @Test
     public void saveTest() {
         Assert.assertTrue(machineRepository.findAll().isEmpty());
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         Assert.assertEquals(machineRepository.count(), 1);
         Assert.assertEquals(machineRepository.findAll().get(0), machine);
@@ -63,7 +60,6 @@ public class MachineRepositoryTest {
     @Test
     public void updateTest() {
         Assert.assertTrue(machineRepository.findAll().isEmpty());
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         Assert.assertEquals(machineRepository.count(), 1);
         Assert.assertEquals(machineRepository.findAll().get(0), machine);
@@ -76,7 +72,6 @@ public class MachineRepositoryTest {
     @Test
     public void deleteTest() {
         Assert.assertTrue(machineRepository.findAll().isEmpty());
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         Assert.assertEquals(machineRepository.count(), 1);
         machineRepository.delete(machine);
@@ -86,7 +81,6 @@ public class MachineRepositoryTest {
     @Test
     public void deleteByIdTest() {
         Assert.assertTrue(machineRepository.findAll().isEmpty());
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         Assert.assertEquals(machineRepository.count(), 1);
         machineRepository.deleteById(machine.getId());
@@ -96,7 +90,6 @@ public class MachineRepositoryTest {
     @Test
     public void deleteAllTest() {
         Assert.assertTrue(machineRepository.findAll().isEmpty());
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         MachineGamingEnt machine2 = new MachineGamingEnt("machine2", 8, 256, 256, 3000, 200);
         machineRepository.save(machine);
         machineRepository.save(machine2);

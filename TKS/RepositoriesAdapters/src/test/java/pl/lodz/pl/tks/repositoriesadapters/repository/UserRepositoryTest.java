@@ -11,16 +11,17 @@ import java.util.UUID;
 public class UserRepositoryTest {
 
     private UserRepository userRepository;
+    private UserEnt user;
 
     @Before
     public void init() {
         userRepository = new UserRepository();
+        user = new UserEnt("user", "user user", true);
     }
 
     @Test
     public void findAllTest() {
         Assert.assertTrue(userRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
         userRepository.save(user);
         Assert.assertEquals(userRepository.findAll().get(0), user);
         Assert.assertFalse(userRepository.findAll().isEmpty());
@@ -28,7 +29,6 @@ public class UserRepositoryTest {
 
     @Test
     public void findByIdTest() {
-        UserEnt user = new UserEnt("user", "user user", true);
         userRepository.save(user);
         Assert.assertEquals(userRepository.findById(user.getId()).orElseThrow(), user);
         Assert.assertTrue(userRepository.findById(UUID.randomUUID()).isEmpty());
@@ -36,7 +36,6 @@ public class UserRepositoryTest {
 
     @Test
     public void existByIdTest() {
-        UserEnt user = new UserEnt("user", "user user", true);
         userRepository.save(user);
         Assert.assertTrue(userRepository.existsById(user.getId()));
         Assert.assertFalse(userRepository.existsById(UUID.randomUUID()));
@@ -45,7 +44,6 @@ public class UserRepositoryTest {
     @Test
     public void countTest() {
         Assert.assertEquals(userRepository.count(), 0);
-        UserEnt user = new UserEnt("user", "user user", true);
         userRepository.save(user);
         Assert.assertEquals(userRepository.count(), 1);
     }
@@ -53,7 +51,6 @@ public class UserRepositoryTest {
     @Test
     public void saveTest() {
         Assert.assertTrue(userRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
         userRepository.save(user);
         Assert.assertEquals(userRepository.count(), 1);
         Assert.assertEquals(userRepository.findAll().get(0), user);
@@ -62,7 +59,6 @@ public class UserRepositoryTest {
     @Test
     public void updateTest() {
         Assert.assertTrue(userRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
         userRepository.save(user);
         Assert.assertEquals(userRepository.count(), 1);
         Assert.assertEquals(userRepository.findAll().get(0), user);
@@ -75,7 +71,6 @@ public class UserRepositoryTest {
     @Test
     public void deleteTest() {
         Assert.assertTrue(userRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
         userRepository.save(user);
         Assert.assertEquals(userRepository.count(), 1);
         userRepository.delete(user);
@@ -85,7 +80,6 @@ public class UserRepositoryTest {
     @Test
     public void deleteByIdTest() {
         Assert.assertTrue(userRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
         userRepository.save(user);
         Assert.assertEquals(userRepository.count(), 1);
         userRepository.deleteById(user.getId());
@@ -95,7 +89,6 @@ public class UserRepositoryTest {
     @Test
     public void deleteAllTest() {
         Assert.assertTrue(userRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
         UserEnt user2 = new UserEnt("user2", "user user2", true);
         userRepository.save(user);
         userRepository.save(user2);

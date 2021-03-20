@@ -14,18 +14,21 @@ import java.util.UUID;
 public class RentRepositoryTest {
 
     private RentRepository rentRepository;
+    private UserEnt user;
+    private MachineGamingEnt machine;
+    private RentEnt rent;
 
     @Before
     public void init() {
         rentRepository = new RentRepository();
+        user = new UserEnt("user", "user user", true);
+        machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
+        rent = new RentEnt(machine, user, new PeriodEnt());
     }
 
     @Test
     public void findAllTest() {
         Assert.assertTrue(rentRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         rentRepository.save(rent);
         Assert.assertEquals(rentRepository.findAll().get(0), rent);
         Assert.assertFalse(rentRepository.findAll().isEmpty());
@@ -33,9 +36,6 @@ public class RentRepositoryTest {
 
     @Test
     public void findByIdTest() {
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         rentRepository.save(rent);
         Assert.assertEquals(rentRepository.findById(rent.getId()).orElseThrow(), rent);
         Assert.assertTrue(rentRepository.findById(UUID.randomUUID()).isEmpty());
@@ -43,9 +43,6 @@ public class RentRepositoryTest {
 
     @Test
     public void existByIdTest() {
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         rentRepository.save(rent);
         Assert.assertTrue(rentRepository.existsById(rent.getId()));
         Assert.assertFalse(rentRepository.existsById(UUID.randomUUID()));
@@ -54,9 +51,6 @@ public class RentRepositoryTest {
     @Test
     public void countTest() {
         Assert.assertEquals(rentRepository.count(), 0);
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         rentRepository.save(rent);
         Assert.assertEquals(rentRepository.count(), 1);
     }
@@ -64,9 +58,6 @@ public class RentRepositoryTest {
     @Test
     public void saveTest() {
         Assert.assertTrue(rentRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         rentRepository.save(rent);
         Assert.assertEquals(rentRepository.count(), 1);
         Assert.assertEquals(rentRepository.findAll().get(0), rent);
@@ -75,9 +66,6 @@ public class RentRepositoryTest {
     @Test
     public void updateTest() {
         Assert.assertTrue(rentRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         rentRepository.save(rent);
         Assert.assertEquals(rentRepository.count(), 1);
         Assert.assertEquals(rentRepository.findAll().get(0), rent);
@@ -91,9 +79,6 @@ public class RentRepositoryTest {
     @Test
     public void deleteTest() {
         Assert.assertTrue(rentRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         rentRepository.save(rent);
         Assert.assertEquals(rentRepository.count(), 1);
         rentRepository.delete(rent);
@@ -103,9 +88,6 @@ public class RentRepositoryTest {
     @Test
     public void deleteByIdTest() {
         Assert.assertTrue(rentRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         rentRepository.save(rent);
         Assert.assertEquals(rentRepository.count(), 1);
         rentRepository.deleteById(rent.getId());
@@ -115,9 +97,6 @@ public class RentRepositoryTest {
     @Test
     public void deleteAllTest() {
         Assert.assertTrue(rentRepository.findAll().isEmpty());
-        UserEnt user = new UserEnt("user", "user user", true);
-        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
-        RentEnt rent = new RentEnt(machine, user, new PeriodEnt());
         MachineGamingEnt machine2 = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         RentEnt rent2 = new RentEnt(machine2, user, new PeriodEnt());
         rentRepository.save(rent);
