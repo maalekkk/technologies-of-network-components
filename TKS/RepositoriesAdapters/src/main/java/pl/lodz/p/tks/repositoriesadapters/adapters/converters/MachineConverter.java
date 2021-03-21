@@ -10,22 +10,30 @@ import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineWorkstationEnt;
 public class MachineConverter {
 
     public static Machine toDomainModel(MachineEnt machineEnt) {
-        if (machineEnt.getClass().isInstance(MachineGamingEnt.class)) {
+        if (machineEnt instanceof MachineGamingEnt) {
             MachineGamingEnt machineGamingEnt = (MachineGamingEnt) machineEnt;
-            return new MachineGaming(machineGamingEnt.getName(), machineGamingEnt.getCores(), machineGamingEnt.getRamSize(), machineGamingEnt.getHddSize(), machineGamingEnt.getGpuPower(), machineGamingEnt.getGpuVram());
+            MachineGaming machineGaming = new MachineGaming(machineGamingEnt.getName(), machineGamingEnt.getCores(), machineGamingEnt.getRamSize(), machineGamingEnt.getHddSize(), machineGamingEnt.getGpuPower(), machineGamingEnt.getGpuVram());
+            machineGaming.setId(machineGamingEnt.getId());
+            return machineGaming;
         } else {
             MachineWorkstationEnt machineWorkstationEnt = (MachineWorkstationEnt) machineEnt;
-            return new MachineWorkstation(machineWorkstationEnt.getName(), machineWorkstationEnt.getCores(), machineWorkstationEnt.getRamSize(), machineWorkstationEnt.getHddSize(), machineWorkstationEnt.getSsdSize(), machineWorkstationEnt.getNetCards(), machineWorkstationEnt.getRaidSupport());
+            MachineWorkstation machineWorkstation = new MachineWorkstation(machineWorkstationEnt.getName(), machineWorkstationEnt.getCores(), machineWorkstationEnt.getRamSize(), machineWorkstationEnt.getHddSize(), machineWorkstationEnt.getSsdSize(), machineWorkstationEnt.getNetCards(), machineWorkstationEnt.getRaidSupport());
+            machineWorkstation.setId(machineWorkstationEnt.getId());
+            return machineWorkstation;
         }
     }
 
     public static MachineEnt fromDomainModel(Machine machine) {
-        if (machine.getClass().isInstance(MachineGaming.class)) {
+        if (machine instanceof MachineGaming) {
             MachineGaming machineGaming = (MachineGaming) machine;
-            return new MachineGamingEnt(machineGaming.getName(), machineGaming.getCores(), machineGaming.getRamSize(), machineGaming.getHddSize(), machineGaming.getGpuPower(), machineGaming.getGpuVram());
+            MachineGamingEnt machineGamingEnt = new MachineGamingEnt(machineGaming.getName(), machineGaming.getCores(), machineGaming.getRamSize(), machineGaming.getHddSize(), machineGaming.getGpuPower(), machineGaming.getGpuVram());
+            machineGamingEnt.setId(machineGaming.getId());
+            return machineGamingEnt;
         } else {
             MachineWorkstation machineWorkstation = (MachineWorkstation) machine;
-            return new MachineWorkstationEnt(machineWorkstation.getName(), machineWorkstation.getCores(), machineWorkstation.getRamSize(), machineWorkstation.getHddSize(), machineWorkstation.getSsdSize(), machineWorkstation.getNetCards(), machineWorkstation.getRaidSupport());
+            MachineWorkstationEnt machineWorkstationEnt = new MachineWorkstationEnt(machineWorkstation.getName(), machineWorkstation.getCores(), machineWorkstation.getRamSize(), machineWorkstation.getHddSize(), machineWorkstation.getSsdSize(), machineWorkstation.getNetCards(), machineWorkstation.getRaidSupport());
+            machineWorkstationEnt.setId(machine.getId());
+            return machineWorkstationEnt;
         }
     }
 }

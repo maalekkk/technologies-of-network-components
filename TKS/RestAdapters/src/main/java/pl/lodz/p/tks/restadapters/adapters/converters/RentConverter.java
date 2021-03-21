@@ -8,7 +8,7 @@ public class RentConverter {
 
     public static Rent toDomainModel(RentRest rentRest) {
         Rent rent = new Rent(MachineConverter.toDomainModel(rentRest.getMachine()), UserConverter.toDomainModel(rentRest.getUser()), PeriodConverter.toDomainModel(rentRest.getPeriod()));
-        rent.setId(rent.getId());
+        rent.setId(rentRest.getId());
         return rent;
     }
 
