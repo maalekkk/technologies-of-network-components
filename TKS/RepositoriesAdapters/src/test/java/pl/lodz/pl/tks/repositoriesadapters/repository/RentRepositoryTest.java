@@ -15,14 +15,13 @@ public class RentRepositoryTest {
 
     private RentRepository rentRepository;
     private UserEnt user;
-    private MachineGamingEnt machine;
     private RentEnt rent;
 
     @Before
     public void init() {
         rentRepository = new RentRepository();
         user = new UserEnt("user", "user user", true);
-        machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
+        MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         rent = new RentEnt(machine, user, new PeriodEnt());
     }
 
@@ -34,11 +33,11 @@ public class RentRepositoryTest {
         Assert.assertFalse(rentRepository.findAll().isEmpty());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void findByIdTest() {
         rentRepository.save(rent);
-        Assert.assertEquals(rentRepository.findById(rent.getId()).orElseThrow(), rent);
-        Assert.assertTrue(rentRepository.findById(UUID.randomUUID()).isEmpty());
+        Assert.assertEquals(rentRepository.findById(rent.getId()).orElseThrow(IllegalArgumentException::new), rent);
+        rentRepository.findById(UUID.randomUUID()).orElseThrow(IllegalArgumentException::new);
     }
 
     @Test

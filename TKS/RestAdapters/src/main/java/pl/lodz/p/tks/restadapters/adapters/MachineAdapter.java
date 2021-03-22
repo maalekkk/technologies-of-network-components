@@ -4,14 +4,15 @@ import pl.lodz.p.tks.applicationports.view.MachineUseCase;
 import pl.lodz.p.tks.restadapters.adapters.converters.MachineConverter;
 import pl.lodz.p.tks.restadapters.data.machine.MachineGamingRest;
 import pl.lodz.p.tks.restadapters.data.machine.MachineWorkstationRest;
-import pl.lodz.p.tks.view.domainmodel.model.machine.*;
+import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
+import pl.lodz.p.tks.view.domainmodel.model.machine.MachineGaming;
+import pl.lodz.p.tks.view.domainmodel.model.machine.MachineWorkstation;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

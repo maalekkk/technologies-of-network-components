@@ -27,11 +27,11 @@ public class UserRepositoryTest {
         Assert.assertFalse(userRepository.findAll().isEmpty());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void findByIdTest() {
         userRepository.save(user);
-        Assert.assertEquals(userRepository.findById(user.getId()).orElseThrow(), user);
-        Assert.assertTrue(userRepository.findById(UUID.randomUUID()).isEmpty());
+        Assert.assertEquals(userRepository.findById(user.getId()).orElseThrow(IllegalArgumentException::new), user);
+        userRepository.findById(UUID.randomUUID()).orElseThrow(IllegalArgumentException::new);
     }
 
     @Test

@@ -15,12 +15,14 @@ public class MachineConverter {
             MachineGaming machineGaming = new MachineGaming(machineGamingEnt.getName(), machineGamingEnt.getCores(), machineGamingEnt.getRamSize(), machineGamingEnt.getHddSize(), machineGamingEnt.getGpuPower(), machineGamingEnt.getGpuVram());
             machineGaming.setId(machineGamingEnt.getId());
             return machineGaming;
-        } else {
+        }
+        if (machineEnt instanceof MachineWorkstationEnt){
             MachineWorkstationEnt machineWorkstationEnt = (MachineWorkstationEnt) machineEnt;
             MachineWorkstation machineWorkstation = new MachineWorkstation(machineWorkstationEnt.getName(), machineWorkstationEnt.getCores(), machineWorkstationEnt.getRamSize(), machineWorkstationEnt.getHddSize(), machineWorkstationEnt.getSsdSize(), machineWorkstationEnt.getNetCards(), machineWorkstationEnt.getRaidSupport());
             machineWorkstation.setId(machineWorkstationEnt.getId());
             return machineWorkstation;
         }
+        return null;
     }
 
     public static MachineEnt fromDomainModel(Machine machine) {
@@ -29,11 +31,13 @@ public class MachineConverter {
             MachineGamingEnt machineGamingEnt = new MachineGamingEnt(machineGaming.getName(), machineGaming.getCores(), machineGaming.getRamSize(), machineGaming.getHddSize(), machineGaming.getGpuPower(), machineGaming.getGpuVram());
             machineGamingEnt.setId(machineGaming.getId());
             return machineGamingEnt;
-        } else {
+        }
+        if (machine instanceof MachineWorkstation) {
             MachineWorkstation machineWorkstation = (MachineWorkstation) machine;
             MachineWorkstationEnt machineWorkstationEnt = new MachineWorkstationEnt(machineWorkstation.getName(), machineWorkstation.getCores(), machineWorkstation.getRamSize(), machineWorkstation.getHddSize(), machineWorkstation.getSsdSize(), machineWorkstation.getNetCards(), machineWorkstation.getRaidSupport());
             machineWorkstationEnt.setId(machine.getId());
             return machineWorkstationEnt;
         }
+        return null;
     }
 }
