@@ -11,7 +11,7 @@ import pl.lodz.p.tks.view.domainmodel.model.machine.MachineWorkstation;
 public class MachineConverter {
 
     public static Machine toDomainModel(MachineRest machineRest) {
-        if (machineRest.getClass().isInstance(MachineGamingRest.class)) {
+        if (machineRest instanceof MachineGamingRest) {
             MachineGamingRest machineGamingRest = (MachineGamingRest) machineRest;
             MachineGaming machineGaming = new MachineGaming(machineGamingRest.getName(), machineGamingRest.getCores(), machineGamingRest.getRamSize(), machineGamingRest.getHddSize(), machineGamingRest.getGpuPower(), machineGamingRest.getGpuVram());
             machineGaming.setId(machineGamingRest.getId());
@@ -25,7 +25,7 @@ public class MachineConverter {
     }
 
     public static MachineRest fromDomainModel(Machine machine) {
-        if (machine.getClass().isInstance(MachineGaming.class)) {
+        if (machine instanceof MachineGaming) {
             MachineGaming machineGaming = (MachineGaming) machine;
             MachineGamingRest machineGamingRest = new MachineGamingRest(machineGaming.getName(), machineGaming.getCores(), machineGaming.getRamSize(), machineGaming.getHddSize(), machineGaming.getGpuPower(), machineGaming.getGpuVram());
             machineGamingRest.setId(machineGaming.getId());

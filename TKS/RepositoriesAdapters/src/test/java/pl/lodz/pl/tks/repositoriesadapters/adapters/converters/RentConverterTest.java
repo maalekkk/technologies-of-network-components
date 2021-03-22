@@ -16,7 +16,6 @@ import pl.lodz.p.tks.view.domainmodel.model.rent.Period;
 import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -72,6 +71,12 @@ public class RentConverterTest {
     public void domainToEntConversion() {
         RentEnt rentEnt = RentConverter.fromDomainModel(rent);
         Assert.assertTrue(compareRents(rentEnt, this.rentEnt));
+    }
+
+    @Test
+    public void entToDomainConversion() {
+        Rent rent = RentConverter.toDomainModel(rentEnt);
+        Assert.assertTrue(compareRents(rent, this.rent));
     }
 
 }

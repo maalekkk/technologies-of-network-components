@@ -1,11 +1,11 @@
-package pl.lodz.pl.tks.repositoriesadapters.adapters.converters;
+package pl.lodz.p.tks.restadapters.adapters.converters;
 
-import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineEnt;
 import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineGamingEnt;
-import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineWorkstationEnt;
-import pl.lodz.p.tks.repositoriesadapters.data.rent.PeriodEnt;
-import pl.lodz.p.tks.repositoriesadapters.data.rent.RentEnt;
-import pl.lodz.p.tks.repositoriesadapters.data.user.UserEnt;
+import pl.lodz.p.tks.restadapters.data.machine.MachineRest;
+import pl.lodz.p.tks.restadapters.data.machine.MachineWorkstationRest;
+import pl.lodz.p.tks.restadapters.data.rent.PeriodRest;
+import pl.lodz.p.tks.restadapters.data.rent.RentRest;
+import pl.lodz.p.tks.restadapters.data.user.UserRest;
 import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
 import pl.lodz.p.tks.view.domainmodel.model.machine.MachineGaming;
 import pl.lodz.p.tks.view.domainmodel.model.machine.MachineWorkstation;
@@ -37,7 +37,7 @@ public class TestUtils {
         if (!machine1.getClass().equals(machine2.getClass())) {
             return false;
         }
-        if (!(machine1 instanceof Machine || machine1 instanceof MachineEnt)) {
+        if (!(machine1 instanceof Machine || machine1 instanceof MachineRest)) {
             return false;
         }
         try {
@@ -50,7 +50,7 @@ public class TestUtils {
             if(machine1 instanceof MachineGaming || machine1 instanceof MachineGamingEnt) {
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getGpuPower");
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getGpuVram");
-            } else if(machine1 instanceof MachineWorkstation || machine1 instanceof MachineWorkstationEnt) {
+            } else if(machine1 instanceof MachineWorkstation || machine1 instanceof MachineWorkstationRest) {
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getSsdSize");
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getNetCards");
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Boolean.class, "getRaidSupport");
@@ -70,7 +70,7 @@ public class TestUtils {
             return false;
         }
 
-        if (!(period1 instanceof Period || period2 instanceof PeriodEnt)) {
+        if (!(period1 instanceof Period || period2 instanceof PeriodRest)) {
             return false;
         }
 
@@ -92,7 +92,7 @@ public class TestUtils {
             return false;
         }
 
-        if (!(user1 instanceof User || user2 instanceof UserEnt)) {
+        if (!(user1 instanceof User || user2 instanceof UserRest)) {
             return false;
         }
 
@@ -115,7 +115,7 @@ public class TestUtils {
             return false;
         }
 
-        if (!(rent1 instanceof Rent || rent2 instanceof RentEnt)) {
+        if (!(rent1 instanceof Rent || rent2 instanceof RentRest)) {
             return false;
         }
 
@@ -135,16 +135,16 @@ public class TestUtils {
                 notEqual |= !compareMachines(m1, m2);
 
             } else {
-                PeriodEnt p1 = getObjectProperty(rent1, PeriodEnt.class, "getPeriod");
-                PeriodEnt p2 = getObjectProperty(rent2, PeriodEnt.class, "getPeriod");
+                PeriodRest p1 = getObjectProperty(rent1, PeriodRest.class, "getPeriod");
+                PeriodRest p2 = getObjectProperty(rent2, PeriodRest.class, "getPeriod");
                 notEqual |= !comparePeriods(p1, p2);
 
-                UserEnt u1 = getObjectProperty(rent1, UserEnt.class, "getUser");
-                UserEnt u2 = getObjectProperty(rent2, UserEnt.class, "getUser");
+                UserRest u1 = getObjectProperty(rent1, UserRest.class, "getUser");
+                UserRest u2 = getObjectProperty(rent2, UserRest.class, "getUser");
                 notEqual |= !compareUsers(u1, u2);
 
-                MachineEnt m1 = getObjectProperty(rent1, MachineEnt.class, "getMachine");
-                MachineEnt m2 = getObjectProperty(rent2, MachineEnt.class, "getMachine");
+                MachineRest m1 = getObjectProperty(rent1, MachineRest.class, "getMachine");
+                MachineRest m2 = getObjectProperty(rent2, MachineRest.class, "getMachine");
                 notEqual |= !compareMachines(m1, m2);
             }
 

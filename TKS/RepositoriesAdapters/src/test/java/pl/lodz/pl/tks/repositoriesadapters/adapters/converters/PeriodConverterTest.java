@@ -7,10 +7,8 @@ import pl.lodz.p.tks.repositoriesadapters.adapters.converters.PeriodConverter;
 import pl.lodz.p.tks.repositoriesadapters.data.rent.PeriodEnt;
 import pl.lodz.p.tks.view.domainmodel.model.rent.Period;
 
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 
-import static pl.lodz.pl.tks.repositoriesadapters.adapters.converters.TestUtils.compareObjectsPropertiesByName;
 import static pl.lodz.pl.tks.repositoriesadapters.adapters.converters.TestUtils.comparePeriods;
 
 public class PeriodConverterTest {

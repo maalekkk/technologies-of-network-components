@@ -12,7 +12,7 @@ public class RentConverter {
         return rent;
     }
 
-    public static RentRest convertRent(Rent rent) {
+    public static RentRest fromDomainModel(Rent rent) {
         RentRest RentRest = new RentRest(MachineConverter.fromDomainModel(rent.getMachine()), UserConverter.fromDomainModel(rent.getUser()), PeriodConverter.fromDomainModel(rent.getPeriod()));
         RentRest.setId(rent.getId());
         return RentRest;
