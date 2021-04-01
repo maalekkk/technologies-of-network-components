@@ -8,7 +8,7 @@
     <display-name>PAS 06 | VMRental Web App</display-name>
 
     <!-- CONTEXT -->
-    <default-context-path>/VMRental</default-context-path>
+    <default-context-path>/VMRentalWebApp</default-context-path>
 
     <!-- LOGIN FORM REALM -->
     <login-config>
