@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap.tks.p.lodz.pl/" xmlns:users="http://soap.tks.p.lodz.pl/users">
+    <xs:import namespace="http://soap.tks.p.lodz.pl/users" schemaLocation="ClientAPI1.xsd"/>
+
+    <xs:element name="getUsersCount" type="tns:getUsersCount"/>
+</xs:schema>

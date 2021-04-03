@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://soap.tks.p.lodz.pl/" xmlns:users="http://soap.tks.p.lodz.pl/users">
+    <xs:complexType name="User">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="username" type="xs:string"/>
+            <xs:element name="fullname" type="xs:string"/>
+            <xs:element name="enabled" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
