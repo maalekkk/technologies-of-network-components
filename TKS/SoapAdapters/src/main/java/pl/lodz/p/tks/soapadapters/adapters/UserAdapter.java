@@ -1,16 +1,18 @@
 package pl.lodz.p.tks.soapadapters.adapters;
 
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebService;
+
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import pl.lodz.p.tks.applicationports.view.UserUseCase;
+import pl.lodz.p.tks.view.applicationservices.service.UserService;
 
 import javax.inject.Inject;
 
-@WebService(serviceName = "ClientAPI")
+@WebService(serviceName = "ClientAPI", wsdlLocation = "https://raw.githubusercontent.com/maalekkk/wsdlTest/master/UserAdapter.wsdl")
 public class UserAdapter {
 
     @Inject
-    private UserUseCase userUseCase;
+    private UserService userUseCase;
 
     @WebMethod
     public int getUsersCount() {
