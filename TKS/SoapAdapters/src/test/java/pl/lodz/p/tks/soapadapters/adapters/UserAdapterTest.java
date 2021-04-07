@@ -17,31 +17,27 @@ import pl.lodz.p.tks.soapadapters.client.UserSoap;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.UUID;
 
-//@Testcontainers
+@Testcontainers
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserAdapterTest {
     static IUserAdapter userAdapterPort;
 
-//        @Container
-//    private static final GenericContainer app = new GenericContainer(
-//            new ImageFromDockerfile().withDockerfileFromBuilder(dockerfileBuilder -> dockerfileBuilder
-//                    .from("payara/server-full:5.2021.1-jdk11")
-//                    .copy("SoapAdapters.war", "/opt/payara/deployments")
-//                    .build())
-//                    .withFileFromPath("SoapAdapters.war", Path.of("target", "SoapAdapters-1.0-SNAPSHOT.war")))
-//            .withExposedPorts(8080, 4848)
-//            .waitingFor(Wait.forHttp("/Soap/UserAdapterService?wsdl").forPort(8080).forStatusCode(200));
-//
+    @Container
+    private static final GenericContainer app = new GenericContainer(
+            new ImageFromDockerfile().withDockerfileFromBuilder(dockerfileBuilder -> dockerfileBuilder
+                    .from("payara/server-full:5.2021.1-jdk11")
+                    .copy("SoapAdapters.war", "/opt/payara/deployments")
+                    .build())
+                    .withFileFromPath("SoapAdapters.war", Path.of("target", "SoapAdapters-1.0-SNAPSHOT.war")))
+            .withExposedPorts(8080, 4848)
+            .waitingFor(Wait.forHttp("/SoapAdapters/UserAdapterService?wsdl").forPort(8080).forStatusCode(200));
+
     @BeforeClass
     public static void setupClass() throws MalformedURLException {
-//        app.start();
-//        URL wsdlURL = new URL("http://localhost:" + app.getMappedPort(8080) + "/Soap/UserAdapterService");
-//        UserAdapterService userAdapterService = new UserAdapterService(wsdlURL);
-//        userAdapterPort = userAdapterService.getUserAdapterPort();
-
-        UserAdapterService userAdapterService = new UserAdapterService();
+        app.start();
+        URL wsdlURL = new URL("http://desktop-sosn1q8:" + app.getMappedPort(8080) + "/SoapAdapters/UserAdapterService");
+        UserAdapterService userAdapterService = new UserAdapterService(wsdlURL);
         userAdapterPort = userAdapterService.getUserAdapterPort();
     }
 
@@ -69,10 +65,9 @@ public class UserAdapterTest {
         UserSoap user = userAdapterPort.getUserByUsername("Malek");
         user.setFullname("Test test");
         userAdapterPort.updateUserById(user.getId(), user);
-        Assert.assertEquals("Test test" , userAdapterPort.getUserById(user.getId()).getFullname());
+        Assert.assertEquals("Test test", userAdapterPort.getUserById(user.getId()).getFullname());
         Assert.assertEquals(3, userAdapterPort.getUsers().size());
     }
-
 
     @Test
     public void zAddUserTest() {
