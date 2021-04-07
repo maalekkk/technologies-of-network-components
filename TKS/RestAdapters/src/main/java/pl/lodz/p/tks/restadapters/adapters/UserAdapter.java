@@ -1,12 +1,15 @@
 package pl.lodz.p.tks.restadapters.adapters;
 
 import pl.lodz.p.tks.applicationports.view.UserUseCase;
+import pl.lodz.p.tks.restadapters.adapters.converters.UserConverter;
+import pl.lodz.p.tks.restadapters.data.user.UserRest;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.util.List;
@@ -25,10 +28,12 @@ public class UserAdapter {
     private UserUseCase userUseCase;
 
     @POST
-    public Response addUser(@NotNull @Valid User user) {
+    @Produces("application/json")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response addUser(@NotNull @Valid UserRest user) {
         return Optional.ofNullable(user.getId())
                 .map(u -> Response.status(BAD_REQUEST))
-                .orElse(Response.ok(userUseCase.saveUser(user)))
+                .orElse(Response.ok(userUseCase.saveUser(UserConverter.toDomainModel(user))))
                 .build();
     }
 
@@ -56,12 +61,13 @@ public class UserAdapter {
     }
 
     @PUT
+    @Consumes({MediaType.APPLICATION_JSON})
     @Path("/{id}")
-    public Response updateUserById(@PathParam("id") UUID userId, @NotNull @Valid User user) {
+    public Response updateUserById(@PathParam("id") UUID userId, @NotNull @Valid UserRest user) {
         return userUseCase.findUserById(userId)
                 .filter(u -> u.getId().equals(user.getId()) &&
                         u.getUsername().equals(user.getUsername()))
-                .map(u -> userUseCase.saveUser(user))
+                .map(u -> userUseCase.saveUser(UserConverter.toDomainModel(user)))
                 .map(Response::ok)
                 .orElseThrow(BadRequestException::new)
                 .build();

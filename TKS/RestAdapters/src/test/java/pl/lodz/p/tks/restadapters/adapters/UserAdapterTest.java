@@ -11,6 +11,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import pl.lodz.p.tks.restadapters.data.user.UserRest;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import java.nio.file.Path;
@@ -97,33 +98,79 @@ public class UserAdapterTest {
 
     @Test
     public void addUserTest() {
-        User newUser = new User("testo", "Lukas Zimmerman", true);
-        newUser.setId(UUID.randomUUID());
-
         var res = given()
+                .when()
+                .get();
+        res.then()
+                .contentType("application/json")
+                .statusCode(200);
+
+        var jsonArray = new JSONArray(res.body().asString());
+        var jsonArrLenBefore = jsonArray.length();
+
+        User newUser = new User("testo", "Lukas Zimmerman", true);
+
+        res = given()
                 .contentType("application/json")
                 .body(new JSONObject(newUser).toString())
                 .when().post();
         res.then()
                 .statusCode(200);
-        // TODO Expected status code <200> but was <500>.
+
+        var jsonObj = new JSONObject(res.body().asString());
+        Assert.assertEquals(jsonObj.getString("username"), "testo");
+        Assert.assertEquals(jsonObj.getString("fullname"), "Lukas Zimmerman");
+        Assert.assertTrue(jsonObj.getBoolean("enabled"));
+
+        res = given()
+                .when()
+                .get();
+        res.then()
+                .contentType("application/json")
+                .statusCode(200);
+
+        jsonArray = new JSONArray(res.body().asString());
+        var jsonArrLenAfter = jsonArray.length();
+
+        Assert.assertEquals(jsonArrLenAfter, jsonArrLenBefore + 1);
     }
 
     @Test
     public void updateUserByIdTest() {
-//        String userName = "Blazz";
-//
-//        var res = given()
-//                .when()
-//                .queryParam("username", userName)
-//                .get("/user");
-//        res.then()
-//                .contentType("application/json")
-//                .statusCode(200);
-//        var jsonObj = new JSONObject(res.body().asString());
-//
-//        String userId = jsonObj.getString("id");
+        String userName = "Blazz";
 
-        //TODO
+        var res = given()
+                .when()
+                .queryParam("username", userName)
+                .get("/user");
+        res.then()
+                .contentType("application/json")
+                .statusCode(200);
+        var jsonObj = new JSONObject(res.body().asString());
+        String userId = jsonObj.getString("id");
+
+        var updatedUser = new UserRest(jsonObj.getString("username"), jsonObj.getString("fullname") + "Updated", jsonObj.getBoolean("enabled"));
+        updatedUser.setId(UUID.fromString(userId));
+        var updatedUserJSON = new JSONObject(updatedUser);
+
+        System.out.println(updatedUserJSON.toString()); // DEBUG
+        res = given()
+                .contentType("application/json")
+                .body(updatedUserJSON.toString())
+                .when()
+                .put("/" + userId);
+        res.then()
+                .statusCode(200);
+
+        res = given()
+                .when()
+                .queryParam("username", userName)
+                .get("/user");
+        res.then()
+                .contentType("application/json")
+                .statusCode(200);
+        var jsonObjUpdated = new JSONObject(res.body().asString());
+
+        Assert.assertEquals(jsonObjUpdated.getString("fullname"), jsonObj.getString("fullname") + "Updated");
     }
 }

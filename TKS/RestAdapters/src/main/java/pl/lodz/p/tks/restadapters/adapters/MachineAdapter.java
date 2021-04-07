@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class MachineAdapter {
     private MachineUseCase machineUseCase;
 
     @POST
+    @Consumes({MediaType.APPLICATION_JSON})
     @Path("/gaming")
     public Response addMachineGaming(@NotNull @Valid MachineGamingRest machineGaming) {
         return addMachine(MachineConverter.toDomainModel(machineGaming));
@@ -67,15 +69,15 @@ public class MachineAdapter {
     @PUT
     @Path("/gaming/{id}")
     public Response updateMachineGaming(@PathParam("id") UUID machineId,
-                                        @NotNull @Valid MachineGaming machineGaming) {
-        return updateMachine(machineId, machineGaming);
+                                        @NotNull @Valid MachineGamingRest machineGaming) {
+        return updateMachine(machineId, MachineConverter.toDomainModel(machineGaming));
     }
 
     @PUT
     @Path("/workstation/{id}")
     public Response updateMachineWorkstation(@PathParam("id") UUID machineId,
-                                             @NotNull @Valid MachineWorkstation machineWorkstation) {
-        return updateMachine(machineId, machineWorkstation);
+                                             @NotNull @Valid MachineWorkstationRest machineWorkstation) {
+        return updateMachine(machineId, MachineConverter.toDomainModel(machineWorkstation));
     }
 
     @DELETE
