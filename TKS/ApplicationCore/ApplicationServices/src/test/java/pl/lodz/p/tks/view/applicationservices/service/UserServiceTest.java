@@ -9,9 +9,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import pl.lodz.p.tks.applicationports.persistence.user.ExistUserPort;
 import pl.lodz.p.tks.applicationports.persistence.user.GetUserPort;
 import pl.lodz.p.tks.applicationports.persistence.user.SaveUserPort;
+import pl.lodz.p.tks.view.domainmodel.model.user.Role;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -41,15 +43,15 @@ public class UserServiceTest {
         MockitoAnnotations.initMocks(this);
 
         users = new ArrayList<>();
-        User user = new User("pawlacz", "Warol Kojtyla", true);
+        User user = new User("pawlacz", "pawlacz", "test", true, Collections.singleton(Role.Client));
         user.setId(UUID.randomUUID());
         users.add(user);
-
 
         // getUserPort
         Mockito.when(getUserPort.getAll()).thenReturn(users);
         Mockito.when(getUserPort.findUserByUsername(Matchers.anyString()))
-                .thenAnswer((InvocationOnMock inv) -> users.stream().filter(x -> x.getUsername().equals(inv.getArguments()[0])).findFirst());
+                .thenAnswer(
+                        (InvocationOnMock inv) -> users.stream().filter(x -> x.getUsername().equals(inv.getArguments()[0])).findFirst());
 
         // SaveUserPort
         Mockito.when(saveUserPort.saveUser(Matchers.any())).thenAnswer((InvocationOnMock inv) -> {
@@ -77,7 +79,7 @@ public class UserServiceTest {
     public void test() {
         assertEquals(userService.getAll().size(), 1);
         assertFalse(userService.findUserByUsername("pawlacz").isEmpty());
-        User user = new User("peja", "Asd eeef", true);
+        User user = new User("peja", "peja", "Asd eeef", true, Collections.singleton(Role.Client));
         userService.saveUser(user);
         assertTrue(userService.existsUser(user));
         assertEquals(userService.getAll().size(), 2);

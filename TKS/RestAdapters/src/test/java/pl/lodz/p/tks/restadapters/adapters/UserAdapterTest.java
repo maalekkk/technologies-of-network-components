@@ -13,11 +13,15 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import pl.lodz.p.tks.restadapters.data.user.RoleRest;
 import pl.lodz.p.tks.restadapters.data.user.UserRest;
+import pl.lodz.p.tks.view.domainmodel.model.user.Role;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
@@ -111,7 +115,9 @@ public class UserAdapterTest {
         String userId = jsonObj.getString("id");
 
         var updatedUser = new UserRest(
-                jsonObj.getString("username"), jsonObj.getString("fullname") + "Updated", jsonObj.getBoolean("enabled"));
+                jsonObj.getString("username"), jsonObj.getString("password"), jsonObj.getString("fullname") + "Updated",
+                jsonObj.getBoolean("enabled"), jsonObj.getJSONArray("roles").toList().stream().map(role ->
+                RoleRest.valueOf(role.toString())).collect(Collectors.toSet()));
         updatedUser.setId(UUID.fromString(userId));
         var updatedUserJSON = new JSONObject(updatedUser);
 
@@ -148,7 +154,7 @@ public class UserAdapterTest {
         var jsonArray = new JSONArray(res.body().asString());
         var jsonArrLenBefore = jsonArray.length();
 
-        User newUser = new User("testo", "Lukas Zimmerman", true);
+        User newUser = new User("testo", "testo", "Lukas Zimmerman", true, Collections.singleton(Role.Client));
 
         res = given()
                 .contentType("application/json")

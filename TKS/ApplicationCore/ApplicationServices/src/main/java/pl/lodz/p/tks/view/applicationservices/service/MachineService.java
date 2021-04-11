@@ -60,8 +60,8 @@ public class MachineService implements MachineUseCase {
     }
 
     @Override
-    public void deleteMachine(Machine machine) {
-        deleteMachinePort.deleteMachine(machine);
+    public boolean deleteMachine(Machine machine) {
+       return deleteMachinePort.deleteMachine(machine);
     }
 
     public boolean deleteMachineById(UUID machineId) {

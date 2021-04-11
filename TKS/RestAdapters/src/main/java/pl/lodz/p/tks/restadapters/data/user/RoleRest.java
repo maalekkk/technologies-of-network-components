@@ -1,7 +1,12 @@
 package pl.lodz.p.tks.restadapters.data.user;
 
-public enum RoleRest {
+public enum RoleRest
+{
     Client,
     Admin,
-    Owner
+    Owner;
+
+    public static final String CLIENT = "Client";
+    public static final String ADMIN = "Admin";
+    public static final String OWNER = "Owner";
 }

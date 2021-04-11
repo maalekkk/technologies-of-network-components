@@ -1,15 +1,19 @@
 package pl.lodz.p.tks.view.controller.auth;
 
-import pl.lodz.p.tks.applicationports.view.UserUseCase;
-import pl.lodz.p.tks.view.domainmodel.model.user.User;
 import pl.lodz.p.tks.view.util.MessageProvider;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.ServletException;
+import javax.security.enterprise.AuthenticationStatus;
+import javax.security.enterprise.SecurityContext;
+import javax.security.enterprise.authentication.mechanism.http.AuthenticationParameters;
+import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotBlank;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,40 +23,46 @@ public class LoginController
 {
     private static final Logger logger = Logger.getLogger(LoginController.class.getSimpleName());
 
-    String username;
-    String password;
+    @NotBlank
+    private String username;
+
+    @NotBlank
+    private String password;
 
     @Inject
-    private UserUseCase userUseCase;
+    private FacesContext facesContext;
 
     @Inject
-    private HttpServletRequest request;
+    private SecurityContext securityContext;
 
     @Inject
     private MessageProvider messageProvider;
 
     public String submit()
     {
-        Optional<User> optionalUser = userUseCase.findUserByUsername(username);
-        if (optionalUser.isPresent())
+        switch (login(username, password))
         {
-            if (optionalUser.get().isEnabled())
+            case SEND_CONTINUE:
             {
-                try
-                {
-                    request.login(username, password);
-                    logger.log(Level.INFO, username + " " + messageProvider.getMessage("messages", "login_succeed"));
-                    return "dashboard";
-                }
-                catch (ServletException ignored)
-                {
-                    logger.log(Level.WARNING, username + " " + messageProvider.getMessage("messages", "login_failed"));
-                    return "root";
-                }
+                facesContext.responseComplete();
+                break;
             }
-            logger.log(Level.INFO, username + " " + messageProvider.getMessage("messages", "login_restricted"));
+            case SEND_FAILURE:
+            {
+                logger.log(Level.WARNING, username + " " + messageProvider.getMessage("messages", "login_failed"));
+                break;
+            }
+            case SUCCESS:
+            {
+                logger.log(Level.INFO, username + " " + messageProvider.getMessage("messages", "login_succeed"));
+                return "dashboard";
+            }
+            default:
+            {
+                break;
+            }
         }
-        return "root";
+        return null;
     }
 
     public String getUsername()
@@ -73,5 +83,16 @@ public class LoginController
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    private AuthenticationStatus login(String username, String password)
+    {
+        ExternalContext context = facesContext.getExternalContext();
+        return securityContext.authenticate(
+                (HttpServletRequest) context.getRequest(),
+                (HttpServletResponse) context.getResponse(),
+                AuthenticationParameters.withParams()
+                        .credential(new UsernamePasswordCredential(username, password))
+        );
     }
 }

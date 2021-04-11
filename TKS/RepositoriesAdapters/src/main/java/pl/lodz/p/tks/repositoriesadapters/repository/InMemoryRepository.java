@@ -64,8 +64,8 @@ public abstract class InMemoryRepository<T extends IdentityEnt<ID>, ID extends S
     }
 
     @Override
-    public void delete(@NotNull T entity) {
-        elements.remove(entity);
+    public boolean delete(@NotNull T entity) {
+        return elements.remove(entity);
     }
 
     @Override

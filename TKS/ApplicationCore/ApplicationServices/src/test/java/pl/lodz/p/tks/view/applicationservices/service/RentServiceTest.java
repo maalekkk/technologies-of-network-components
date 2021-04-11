@@ -13,10 +13,12 @@ import pl.lodz.p.tks.applicationports.persistence.rent.SaveRentPort;
 import pl.lodz.p.tks.view.domainmodel.model.machine.MachineGaming;
 import pl.lodz.p.tks.view.domainmodel.model.rent.Period;
 import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
+import pl.lodz.p.tks.view.domainmodel.model.user.Role;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -51,7 +53,7 @@ public class RentServiceTest {
 
         MachineGaming machineGaming = new MachineGaming("Jaro", 2137, 12, 32, 32, 32);
         machineGaming.setId(UUID.randomUUID());
-        User user = new User("pawlacz", "Warol Kojtyla", true);
+        User user = new User("pawlacz", "pawlacz", "test", true, Collections.singleton(Role.Client));
         user.setId(UUID.randomUUID());
 
         Period period = new Period();
@@ -102,7 +104,7 @@ public class RentServiceTest {
 
         MachineGaming machineGaming = new MachineGaming("Acer x69", 2137, 1, 33, 32, 32);
         machineGaming.setId(UUID.randomUUID());
-        User user = new User("nowy", "Janusz Pudzian", true);
+        User user = new User("nowy", "nowy", "Janusz Pudzian", true, Collections.singleton(Role.Client));
         user.setId(UUID.randomUUID());
 
         Period period = new Period();

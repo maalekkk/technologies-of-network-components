@@ -6,9 +6,11 @@ import org.junit.Test;
 import pl.lodz.p.tks.repositoriesadapters.data.machine.MachineGamingEnt;
 import pl.lodz.p.tks.repositoriesadapters.data.rent.PeriodEnt;
 import pl.lodz.p.tks.repositoriesadapters.data.rent.RentEnt;
+import pl.lodz.p.tks.repositoriesadapters.data.user.RoleEnt;
 import pl.lodz.p.tks.repositoriesadapters.data.user.UserEnt;
 import pl.lodz.p.tks.repositoriesadapters.repository.RentRepository;
 
+import java.util.Collections;
 import java.util.UUID;
 
 public class RentRepositoryTest {
@@ -20,7 +22,7 @@ public class RentRepositoryTest {
     @Before
     public void init() {
         rentRepository = new RentRepository();
-        user = new UserEnt("user", "user user", true);
+        user = new UserEnt("user", "user", "user user", true, Collections.singleton(RoleEnt.Client));
         MachineGamingEnt machine = new MachineGamingEnt("machine", 8, 256, 256, 3000, 200);
         rent = new RentEnt(machine, user, new PeriodEnt());
     }

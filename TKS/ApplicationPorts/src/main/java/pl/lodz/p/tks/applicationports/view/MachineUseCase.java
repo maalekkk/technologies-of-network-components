@@ -20,7 +20,7 @@ public interface MachineUseCase {
 
     List<Machine> getAll();
 
-    void deleteMachine(Machine machine);
+    boolean deleteMachine(Machine machine);
 
     boolean deleteMachineById(UUID machineId);
 }

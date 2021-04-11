@@ -1,4 +1,4 @@
-package pl.lodz.p.tks.restadapters;
+package pl.lodz.p.tks.restadapters.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

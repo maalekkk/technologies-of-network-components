@@ -20,7 +20,7 @@ public class LogoutController
         if (session != null)
         {
             request.logout();
-            request.getSession().invalidate();
+            session.invalidate();
         }
         return "root";
     }

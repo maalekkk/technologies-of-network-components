@@ -1,6 +1,6 @@
-package pl.lodz.p.tks.repositoriesadapters.data.user;
+package pl.lodz.p.tks.soapadapters.data.user;
 
-public enum RoleEnt
+public enum RoleSoap
 {
     Client,
     Admin,

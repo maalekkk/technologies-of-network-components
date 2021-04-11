@@ -23,8 +23,8 @@ public class MachineAdapter implements DeleteMachinePort, GetMachinePort, SaveMa
     private MachineRepository machineRepository;
 
     @Override
-    public void deleteMachine(Machine machine) {
-        machineRepository.delete(MachineConverter.fromDomainModel(machine));
+    public boolean deleteMachine(Machine machine) {
+        return machineRepository.delete(MachineConverter.fromDomainModel(machine));
     }
 
     @Override

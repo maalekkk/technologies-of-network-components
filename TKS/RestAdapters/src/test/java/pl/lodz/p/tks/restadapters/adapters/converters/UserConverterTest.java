@@ -3,9 +3,12 @@ package pl.lodz.p.tks.restadapters.adapters.converters;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pl.lodz.p.tks.restadapters.data.user.RoleRest;
 import pl.lodz.p.tks.restadapters.data.user.UserRest;
+import pl.lodz.p.tks.view.domainmodel.model.user.Role;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 
+import java.util.Collections;
 import java.util.UUID;
 
 import static pl.lodz.p.tks.restadapters.adapters.converters.TestUtils.compareUsers;
@@ -17,8 +20,8 @@ public class UserConverterTest {
 
     @Before
     public void init() {
-        user = new User("Bolek", "Bolesław Chrobry", true);
-        userRest = new UserRest("Bolek", "Bolesław Chrobry", true);
+        user = new User("Bolek", "Bolek", "Bolesław Chrobry", true, Collections.singleton(Role.Client));
+        userRest = new UserRest("Bolek", "Bolek", "Bolesław Chrobry", true, Collections.singleton(RoleRest.Client));
 
         UUID userId = UUID.randomUUID();
         user.setId(userId);

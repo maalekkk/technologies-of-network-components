@@ -3,9 +3,11 @@ package pl.lodz.pl.tks.repositoriesadapters.repository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import pl.lodz.p.tks.repositoriesadapters.data.user.RoleEnt;
 import pl.lodz.p.tks.repositoriesadapters.data.user.UserEnt;
 import pl.lodz.p.tks.repositoriesadapters.repository.UserRepository;
 
+import java.util.Collections;
 import java.util.UUID;
 
 public class UserRepositoryTest {
@@ -16,7 +18,7 @@ public class UserRepositoryTest {
     @Before
     public void init() {
         userRepository = new UserRepository();
-        user = new UserEnt("user", "user user", true);
+        user = new UserEnt("user", "user", "user user", true, Collections.singleton(RoleEnt.Client));
     }
 
     @Test
@@ -89,7 +91,8 @@ public class UserRepositoryTest {
     @Test
     public void deleteAllTest() {
         Assert.assertTrue(userRepository.findAll().isEmpty());
-        UserEnt user2 = new UserEnt("user2", "user user2", true);
+        UserEnt user2 = new UserEnt(
+                "user2", "user2", "user user2", true, Collections.singleton(RoleEnt.Client));
         userRepository.save(user);
         userRepository.save(user2);
         Assert.assertEquals(userRepository.count(), 2);

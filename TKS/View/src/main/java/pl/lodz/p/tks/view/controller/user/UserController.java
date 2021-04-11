@@ -1,6 +1,7 @@
 package pl.lodz.p.tks.view.controller.user;
 
 import pl.lodz.p.tks.applicationports.view.UserUseCase;
+import pl.lodz.p.tks.view.domainmodel.model.user.Role;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 import pl.lodz.p.tks.view.validator.unique.username.UniqueUsername;
 
@@ -9,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Collections;
 
 @Named
 @ViewScoped
@@ -61,5 +63,16 @@ public class UserController implements Serializable
     public void setUsername(String username)
     {
         this.username = username;
+    }
+
+
+    public Role getUserRole()
+    {
+        return user.getRoles().iterator().next();
+    }
+
+    public void setUserRole(Role userRole)
+    {
+        this.user.setRoles(Collections.singleton(userRole));
     }
 }

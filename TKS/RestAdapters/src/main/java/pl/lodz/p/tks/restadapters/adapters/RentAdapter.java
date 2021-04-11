@@ -7,6 +7,7 @@ import pl.lodz.p.tks.restadapters.adapters.converters.PeriodConverter;
 import pl.lodz.p.tks.restadapters.data.rent.RentRest;
 import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static pl.lodz.p.tks.restadapters.data.user.RoleRest.Client;
 
 @Path("/rents")
 @Consumes(APPLICATION_JSON)
