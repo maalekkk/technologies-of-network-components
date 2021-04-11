@@ -66,11 +66,11 @@ public class UserAdapterTest {
         user.setFullname("Test test");
         userAdapterPort.updateUserById(user.getId(), user);
         Assert.assertEquals("Test test", userAdapterPort.getUserById(user.getId()).getFullname());
-        Assert.assertEquals(3, userAdapterPort.getUsers().size());
+        Assert.assertEquals(4, userAdapterPort.getUsers().size());
     }
 
     @Test
-    public void zAddUserTest() {
+    public void insertUserTest() {
         Assert.assertEquals(3, userAdapterPort.getUsers().size());
         UserSoap userSoap = new UserSoap();
         userSoap.setEnabled(true);

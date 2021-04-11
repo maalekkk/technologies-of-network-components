@@ -3,7 +3,9 @@ package pl.lodz.p.tks.restadapters.adapters;
 import io.restassured.RestAssured;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.primefaces.shaded.json.JSONArray;
 import org.primefaces.shaded.json.JSONObject;
 import org.testcontainers.containers.GenericContainer;
@@ -21,6 +23,7 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 
 @Testcontainers
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MachineAdapterTest {
     @Container
     private static final GenericContainer app = new GenericContainer(
@@ -97,7 +100,7 @@ public class MachineAdapterTest {
     }
 
     @Test
-    public void addMachineGamingTest() {
+    public void insertMachineGamingTest() {
         var res = given()
                 .when()
                 .get();
@@ -139,7 +142,7 @@ public class MachineAdapterTest {
     }
 
     @Test
-    public void addMachineWorkstationTest() {
+    public void insertMachineWorkstationTest() {
         var res = given()
                 .when()
                 .get();
@@ -182,7 +185,7 @@ public class MachineAdapterTest {
     }
 
     @Test
-    public void updateMachineGamingTest() {
+    public void modifyMachineGamingTest() {
         String machineName = "Predator";
 
         var res = given()
@@ -221,7 +224,7 @@ public class MachineAdapterTest {
     }
 
     @Test
-    public void updateMachineWorkstationTest() {
+    public void modifyMachineWorkstationTest() {
         String machineName = "Developex";
 
         var res = given()
@@ -260,7 +263,7 @@ public class MachineAdapterTest {
     }
 
     @Test
-    public void deleteMachineByIdTest() {
+    public void removeMachineByIdTest() {
         var res = given()
                 .when()
                 .get();
