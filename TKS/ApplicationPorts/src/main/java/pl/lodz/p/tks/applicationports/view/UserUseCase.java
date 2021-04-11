@@ -17,13 +17,13 @@ public interface UserUseCase {
 
     List<User> filterUserByUsername(String username);
 
-    public User getCurrentUser();
+    User getCurrentUser();
 
-    public Role getCurrentRole();
+    Role getCurrentRole();
 
-    public boolean existsUser(User user);
+    boolean existsUser(User user);
 
-    public List<User> getAll();
+    List<User> getAll();
 
-    public void changeUserActivity(User user);
+    void changeUserActivity(User user);
 }

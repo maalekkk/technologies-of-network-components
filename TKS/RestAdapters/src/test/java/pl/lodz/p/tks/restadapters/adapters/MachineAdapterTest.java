@@ -35,11 +35,9 @@ public class MachineAdapterTest {
             .withExposedPorts(8080, 4848)
             .waitingFor(Wait.forHttp("/VMRental/api/machines").forPort(8080).forStatusCode(200));
 
-
     @BeforeClass
     public static void setupClass() {
         app.start();
-
         RestAssured.baseURI = "http://localhost:" + app.getMappedPort(8080) + "/VMRental/api/machines";
     }
 
@@ -198,7 +196,9 @@ public class MachineAdapterTest {
         var jsonObj = new JSONObject(res.body().asString());
         String machineId = jsonObj.getString("id");
 
-        var updatedMachine = new MachineGamingRest(jsonObj.getString("name"), jsonObj.getInt("cores") + 1, jsonObj.getInt("ramSize"), jsonObj.getInt("hddSize"), jsonObj.getInt("gpuPower"), jsonObj.getInt("gpuVram"));
+        var updatedMachine = new MachineGamingRest(
+                jsonObj.getString("name"), jsonObj.getInt("cores") + 1, jsonObj.getInt("ramSize"), jsonObj.getInt("hddSize"),
+                jsonObj.getInt("gpuPower"), jsonObj.getInt("gpuVram"));
         updatedMachine.setId(UUID.fromString(machineId));
         var updatedMachineJSON = new JSONObject(updatedMachine);
 
@@ -237,7 +237,9 @@ public class MachineAdapterTest {
         var jsonObj = new JSONObject(res.body().asString());
         String machineId = jsonObj.getString("id");
 
-        var updatedMachine = new MachineWorkstationRest(jsonObj.getString("name"), jsonObj.getInt("cores") + 1, jsonObj.getInt("ramSize"), jsonObj.getInt("hddSize"), jsonObj.getInt("ssdSize"), jsonObj.getInt("netCards"),jsonObj.getBoolean("raidSupport"));
+        var updatedMachine = new MachineWorkstationRest(
+                jsonObj.getString("name"), jsonObj.getInt("cores") + 1, jsonObj.getInt("ramSize"), jsonObj.getInt("hddSize"),
+                jsonObj.getInt("ssdSize"), jsonObj.getInt("netCards"), jsonObj.getBoolean("raidSupport"));
         updatedMachine.setId(UUID.fromString(machineId));
         var updatedMachineJSON = new JSONObject(updatedMachine);
 
