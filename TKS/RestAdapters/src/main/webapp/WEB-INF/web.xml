@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
-         version="4.0">
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+    version="4.0">
 
     <!-- NAME -->
     <display-name>PAS 06 | VMRental Web App</display-name>
     <!-- CONTEXT -->
     <default-context-path>/VMRental</default-context-path>
+    <!-- SECURITY ROLES -->
+    <security-role>
+        <role-name>Client</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Admin</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Owner</role-name>
+    </security-role>
 </web-app>
