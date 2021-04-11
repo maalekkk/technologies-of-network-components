@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.primefaces.shaded.json.JSONObject;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
@@ -12,6 +13,8 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.nio.file.Path;
+
+import static io.restassured.RestAssured.given;
 
 @Testcontainers
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -34,6 +37,28 @@ public class RentAdapterTest {
     }
 
     @Test
+    public void addFirstRentTest() {
+
+        var res = given()
+                .contentType("application/x-www-form-urlencoded")
+                .param("username", "Malek")
+                .param("password", "trudnehaslo3")
+                .when().post("/auth/login");
+        res.then()
+                .contentType("text/html")
+                .statusCode(200);
+
+        var jsonObj = new JSONObject(res.body().asString());
+        System.out.println(jsonObj.toString());
+    }
+
+    @Test
+    public void addSecondRentTest() {
+
+    }
+
+    @Test
     public void currentUserRentsTest() {
+
     }
 }

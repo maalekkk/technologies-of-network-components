@@ -115,12 +115,12 @@ public class UserAdapterTest {
         String userId = jsonObj.getString("id");
 
         var updatedUser = new UserRest(
-                jsonObj.getString("username"), jsonObj.getString("password"), jsonObj.getString("fullname") + "Updated",
+                jsonObj.getString("username"), "Blazz123456", jsonObj.getString("fullname") + "Updated",
                 jsonObj.getBoolean("enabled"), jsonObj.getJSONArray("roles").toList().stream().map(role ->
                 RoleRest.valueOf(role.toString())).collect(Collectors.toSet()));
         updatedUser.setId(UUID.fromString(userId));
         var updatedUserJSON = new JSONObject(updatedUser);
-
+        updatedUserJSON.remove("rolesAsString");
         System.out.println(updatedUserJSON.toString()); // DEBUG
         res = given()
                 .contentType("application/json")
@@ -154,17 +154,18 @@ public class UserAdapterTest {
         var jsonArray = new JSONArray(res.body().asString());
         var jsonArrLenBefore = jsonArray.length();
 
-        User newUser = new User("testo", "testo", "Lukas Zimmerman", true, Collections.singleton(Role.Client));
-
+        User newUser = new User("JTesto", "testo123", "Lukas Zimmerman", true, Collections.singleton(Role.Client));
+        var newUserJson = new JSONObject(newUser);
+        newUserJson.remove("rolesAsString");
         res = given()
                 .contentType("application/json")
-                .body(new JSONObject(newUser).toString())
+                .body(newUserJson.toString())
                 .when().post();
         res.then()
                 .statusCode(200);
 
         var jsonObj = new JSONObject(res.body().asString());
-        Assert.assertEquals(jsonObj.getString("username"), "testo");
+        Assert.assertEquals(jsonObj.getString("username"), "JTesto");
         Assert.assertEquals(jsonObj.getString("fullname"), "Lukas Zimmerman");
         Assert.assertTrue(jsonObj.getBoolean("enabled"));
 

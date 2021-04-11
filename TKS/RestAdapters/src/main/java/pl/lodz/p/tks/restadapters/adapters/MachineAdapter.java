@@ -67,7 +67,6 @@ public class MachineAdapter {
     }
 
     @GET
-//    @RolesAllowed({Client, Owner, Admin})
     public List<Machine> getMachines() {
         return machineUseCase.getAll();
     }

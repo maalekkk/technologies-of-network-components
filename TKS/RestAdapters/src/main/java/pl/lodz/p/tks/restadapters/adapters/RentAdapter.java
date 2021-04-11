@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static pl.lodz.p.tks.restadapters.data.user.RoleRest.CLIENT;
 import static pl.lodz.p.tks.restadapters.data.user.RoleRest.Client;
 
 @Path("/rents")
@@ -33,7 +34,7 @@ public class RentAdapter {
 
     @POST
     @Path("/create")
-//    @RolesAllowed({Client})
+    @RolesAllowed({CLIENT})
     public Response createRent(@NotNull RentRest simpleRent) {
         return machineUseCase.findMachineByName(simpleRent.getMachine().getName())
                 .map(machine -> new Rent(machine, userUseCase.getCurrentUser(), PeriodConverter.toDomainModel(simpleRent.getPeriod())))
@@ -45,7 +46,7 @@ public class RentAdapter {
 
     @GET
     @Path("/me")
-//    @RolesAllowed({CLIENT})
+    @RolesAllowed({CLIENT})
     public List<Rent> currentUserRents() {
         return rentUseCase.findRentsByUser(userUseCase.getCurrentUser());
     }
