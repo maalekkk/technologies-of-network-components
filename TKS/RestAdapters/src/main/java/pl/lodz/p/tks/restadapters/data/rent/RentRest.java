@@ -1,20 +1,24 @@
 package pl.lodz.p.tks.restadapters.data.rent;
 
-
 import pl.lodz.p.tks.restadapters.data.EntityRest;
 import pl.lodz.p.tks.restadapters.data.machine.MachineRest;
 import pl.lodz.p.tks.restadapters.data.user.UserRest;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class RentRest extends EntityRest {
     @Valid
+    @NotNull
     private MachineRest machine;
 
     @Valid
+    @NotNull
     private UserRest user;
 
     @Valid
+    @NotNull
     private PeriodRest period;
 
     public RentRest() {
@@ -49,5 +53,38 @@ public class RentRest extends EntityRest {
 
     public void setPeriod(PeriodRest period) {
         this.period = period;
+    }
+
+    public static class SimpleRent extends EntityRest {
+        @NotBlank
+        private String machineName;
+
+        @Valid
+        @NotNull
+        private PeriodRest period;
+
+        public SimpleRent() {
+        }
+
+        public SimpleRent(String machineName, PeriodRest period) {
+            this.machineName = machineName;
+            this.period = period;
+        }
+
+        public String getMachineName() {
+            return machineName;
+        }
+
+        public void setMachineName(String machineName) {
+            this.machineName = machineName;
+        }
+
+        public PeriodRest getPeriod() {
+            return period;
+        }
+
+        public void setPeriod(PeriodRest period) {
+            this.period = period;
+        }
     }
 }

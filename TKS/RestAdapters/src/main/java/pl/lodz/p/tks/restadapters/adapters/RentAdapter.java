@@ -35,8 +35,8 @@ public class RentAdapter {
     @POST
     @Path("/create")
     @RolesAllowed({CLIENT})
-    public Response createRent(@NotNull RentRest simpleRent) {
-        return machineUseCase.findMachineByName(simpleRent.getMachine().getName())
+    public Response createRent(@NotNull RentRest.SimpleRent simpleRent) {
+        return machineUseCase.findMachineByName(simpleRent.getMachineName())
                 .map(machine -> new Rent(machine, userUseCase.getCurrentUser(), PeriodConverter.toDomainModel(simpleRent.getPeriod())))
                 .map(rentUseCase::saveRent)
                 .map(Response::ok)
