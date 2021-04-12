@@ -15,8 +15,6 @@ public class User extends Entity {
     @NotBlank
     private String username;
 
-    @Size(min = 8, max = 30)
-    @NotBlank
     private String password;
 
     @NotBlank

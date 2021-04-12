@@ -29,7 +29,7 @@ public class UserService implements UserUseCase {
     @Inject
     private HttpServletRequest request;
 
-    public User saveUser(@Valid User user) {
+    public User saveUser(User user) {
         return saveUserPort.saveUser(user);
     }
 

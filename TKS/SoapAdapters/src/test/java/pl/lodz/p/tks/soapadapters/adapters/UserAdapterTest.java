@@ -31,12 +31,12 @@ public class UserAdapterTest {
                     .build())
                     .withFileFromPath("SoapAdapters.war", Path.of("target", "SoapAdapters-1.0-SNAPSHOT.war")))
             .withExposedPorts(8080, 4848)
-            .waitingFor(Wait.forHttp("/SoapAdapters/UserAdapterService?wsdl").forPort(8080).forStatusCode(200));
+            .waitingFor(Wait.forHttp("/Soap/UserAdapterService?wsdl").forPort(8080).forStatusCode(200));
 
     @BeforeClass
     public static void setupClass() throws MalformedURLException {
         app.start();
-        URL wsdlURL = new URL("http://desktop-sosn1q8:" + app.getMappedPort(8080) + "/SoapAdapters/UserAdapterService");
+        URL wsdlURL = new URL("http://desktop-sosn1q8:" + app.getMappedPort(8080) + "/Soap/UserAdapterService");
         UserAdapterService userAdapterService = new UserAdapterService(wsdlURL);
         userAdapterPort = userAdapterService.getUserAdapterPort();
     }
