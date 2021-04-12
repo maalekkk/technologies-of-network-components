@@ -13,25 +13,17 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import pl.lodz.p.tks.restadapters.data.machine.MachineGamingRest;
-import pl.lodz.p.tks.restadapters.data.machine.MachineRest;
 import pl.lodz.p.tks.restadapters.data.rent.PeriodRest;
-import pl.lodz.p.tks.restadapters.data.rent.RentRest;
 import pl.lodz.p.tks.restadapters.data.rent.RentRest.SimpleRent;
-import pl.lodz.p.tks.restadapters.data.user.RoleRest;
-import pl.lodz.p.tks.restadapters.data.user.UserRest;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
 @Testcontainers
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RentAdapterTest {
-
     @Container
     private static final GenericContainer app = new GenericContainer(
             new ImageFromDockerfile().withDockerfileFromBuilder(dockerfileBuilder -> dockerfileBuilder
@@ -58,23 +50,22 @@ public class RentAdapterTest {
         authResponse.then()
                 .contentType("application/jwt")
                 .statusCode(200);
-        String token = authResponse.body().asString();
 
-        System.out.println(token); //DEBUG
+        String token = authResponse.body().asString();
 
         PeriodRest periodRest = new PeriodRest();
         periodRest.setStartDate(LocalDateTime.now().plusDays(1));
         periodRest.setEndDate(LocalDateTime.now().plusDays(10));
         SimpleRent simpleRent = new SimpleRent("Predator", periodRest);
-        var rentJson = new JSONObject(simpleRent);
 
-        System.out.println(rentJson.toString()); //DEBUG
+        var rentJson = new JSONObject(simpleRent);
 
         var rentResponse = given()
                 .header("Authorization", "Bearer " + token)
                 .contentType("application/json")
-                .body(rentJson)
-                .when().post("/rents/create");
+                .body(rentJson.toString())
+                .when()
+                .post("/rents/create");
         rentResponse.then()
                 .statusCode(200);
     }
@@ -85,10 +76,12 @@ public class RentAdapterTest {
                 .contentType("application/x-www-form-urlencoded")
                 .param("username", "Malek")
                 .param("password", "trudnehaslo")
-                .when().post("/auth/login");
+                .when()
+                .post("/auth/login");
         authResponse.then()
                 .contentType("application/jwt")
                 .statusCode(200);
+
         String token = authResponse.body().asString();
 
         var rentsResponse = given()
@@ -98,7 +91,7 @@ public class RentAdapterTest {
         rentsResponse.then()
                 .statusCode(200);
 
-        var jsonArray = new JSONArray(rentsResponse.body().asString());
-        Assert.assertEquals(1, jsonArray.length());
+        var rentsJsonArray = new JSONArray(rentsResponse.body().asString());
+        Assert.assertEquals(1, rentsJsonArray.length());
     }
 }

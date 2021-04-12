@@ -10,16 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 @ApplicationScoped
-public class JwtAuthenticationMechanism implements HttpAuthenticationMechanism
-{
+public class JwtAuthenticationMechanism implements HttpAuthenticationMechanism {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER = "Bearer ";
 
     @Inject
     private TokenProvider tokenProvider;
 
-    public static Optional<String> extractToken(HttpServletRequest request)
-    {
+    public static Optional<String> extractToken(HttpServletRequest request) {
         String authHeader = request.getHeader(AUTHORIZATION_HEADER);
         return Optional.ofNullable(authHeader)
                 .filter(str -> str.startsWith(BEARER))
@@ -27,8 +25,7 @@ public class JwtAuthenticationMechanism implements HttpAuthenticationMechanism
     }
 
     @Override
-    public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext context)
-    {
+    public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext context) {
         return extractToken(request)
                 .filter(tokenProvider::isValid)
                 .map(tokenProvider::extractCredential)

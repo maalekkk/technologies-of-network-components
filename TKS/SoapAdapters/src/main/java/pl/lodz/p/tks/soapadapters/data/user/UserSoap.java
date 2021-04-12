@@ -1,7 +1,6 @@
 package pl.lodz.p.tks.soapadapters.data.user;
 
 import pl.lodz.p.tks.soapadapters.data.EntitySoap;
-import pl.lodz.p.tks.view.domainmodel.model.user.Role;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.validation.constraints.NotBlank;

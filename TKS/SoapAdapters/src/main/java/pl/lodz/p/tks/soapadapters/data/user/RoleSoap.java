@@ -1,7 +1,6 @@
 package pl.lodz.p.tks.soapadapters.data.user;
 
-public enum RoleSoap
-{
+public enum RoleSoap {
     Client,
     Admin,
     Owner;

@@ -46,139 +46,142 @@ public class UserAdapterTest {
 
     @Test
     public void getAllTest() {
-        var res = given()
+        var usersResponse = given()
                 .when()
                 .get();
-        res.then()
+        usersResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonArray = new JSONArray(res.body().asString());
-        Assert.assertEquals(jsonArray.length(), 3);
+        var usersJson = new JSONArray(usersResponse.body().asString());
+        Assert.assertEquals(usersJson.length(), 3);
     }
 
     @Test
     public void getUserByIdTest() {
         String userName = "Blazz";
 
-        var res = given()
+        var userByNameResponse = given()
                 .when()
                 .queryParam("username", userName)
                 .get("/user");
-        res.then()
+        userByNameResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObj = new JSONObject(res.body().asString());
+        var userByNameJson = new JSONObject(userByNameResponse.body().asString());
 
-        String userId = jsonObj.getString("id");
+        String userId = userByNameJson.getString("id");
 
-        var res2 = given()
+        var userByIdResponse = given()
                 .when()
                 .get("/" + userId);
-        res2.then()
+        userByIdResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonObj2 = new JSONObject(res.body().asString());
-
-        Assert.assertEquals(jsonObj.getString("username"), jsonObj2.getString("username"));
+        var userByIdJson = new JSONObject(userByIdResponse.body().asString());
+        Assert.assertEquals(userByNameJson.getString("username"), userByIdJson.getString("username"));
     }
 
     @Test
     public void getUserByNameTest() {
         String userName = "Blazz";
 
-        var res = given()
+        var userResponse = given()
                 .when()
                 .queryParam("username", userName)
                 .get("/user");
-        res.then()
+        userResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonObj = new JSONObject(res.body().asString());
-        Assert.assertEquals(jsonObj.get("fullname"), "Maciej Błażewicz");
+        var userJson = new JSONObject(userResponse.body().asString());
+        Assert.assertEquals(userJson.get("fullname"), "Maciej Błażewicz");
     }
 
     @Test
     public void updateUserByIdTest() {
         String userName = "Blazz";
 
-        var res = given()
+        var userResponse = given()
                 .when()
                 .queryParam("username", userName)
                 .get("/user");
-        res.then()
+        userResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObj = new JSONObject(res.body().asString());
-        String userId = jsonObj.getString("id");
+        var userJson = new JSONObject(userResponse.body().asString());
+        String userId = userJson.getString("id");
 
         var updatedUser = new UserRest(
-                jsonObj.getString("username"), "Blazz123456", jsonObj.getString("fullname") + "Updated",
-                jsonObj.getBoolean("enabled"), jsonObj.getJSONArray("roles").toList().stream().map(role ->
-                RoleRest.valueOf(role.toString())).collect(Collectors.toSet()));
+                userJson.getString("username"),
+                "Blazz123456",
+                userJson.getString("fullname") + "Updated",
+                userJson.getBoolean("enabled"),
+                userJson.getJSONArray("roles").toList().stream().map(role -> RoleRest.valueOf(role.toString()))
+                        .collect(Collectors.toSet()));
+
         updatedUser.setId(UUID.fromString(userId));
         var updatedUserJSON = new JSONObject(updatedUser);
         updatedUserJSON.remove("rolesAsString");
-        System.out.println(updatedUserJSON.toString()); // DEBUG
-        res = given()
+
+        userResponse = given()
                 .contentType("application/json")
                 .body(updatedUserJSON.toString())
                 .when()
                 .put("/" + userId);
-        res.then()
+        userResponse.then()
                 .statusCode(200);
 
-        res = given()
+        userResponse = given()
                 .when()
                 .queryParam("username", userName)
                 .get("/user");
-        res.then()
+        userResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObjUpdated = new JSONObject(res.body().asString());
 
-        Assert.assertEquals(jsonObjUpdated.getString("fullname"), jsonObj.getString("fullname") + "Updated");
+        var userUpdatedJson = new JSONObject(userResponse.body().asString());
+        Assert.assertEquals(userUpdatedJson.getString("fullname"), userJson.getString("fullname") + "Updated");
     }
 
     @Test
     public void insertUserTest() {
-        var res = given()
+        var usersResponse = given()
                 .when()
                 .get();
-        res.then()
+        usersResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonArray = new JSONArray(res.body().asString());
-        var jsonArrLenBefore = jsonArray.length();
+        var usersJsonArray = new JSONArray(usersResponse.body().asString());
+        int usersLengthBefore = usersJsonArray.length();
 
-        User newUser = new User("JTesto", "testo123", "Lukas Zimmerman", true, Collections.singleton(Role.Client));
-        var newUserJson = new JSONObject(newUser);
+        User user = new User("JTesto", "testo123", "Lukas Zimmerman", true, Collections.singleton(Role.Client));
+        var newUserJson = new JSONObject(user);
         newUserJson.remove("rolesAsString");
-        res = given()
+
+        usersResponse = given()
                 .contentType("application/json")
                 .body(newUserJson.toString())
                 .when().post();
-        res.then()
+        usersResponse.then()
                 .statusCode(200);
 
-        var jsonObj = new JSONObject(res.body().asString());
-        Assert.assertEquals(jsonObj.getString("username"), "JTesto");
-        Assert.assertEquals(jsonObj.getString("fullname"), "Lukas Zimmerman");
-        Assert.assertTrue(jsonObj.getBoolean("enabled"));
+        var userJson = new JSONObject(usersResponse.body().asString());
+        Assert.assertEquals(userJson.getString("username"), "JTesto");
+        Assert.assertEquals(userJson.getString("fullname"), "Lukas Zimmerman");
+        Assert.assertTrue(userJson.getBoolean("enabled"));
 
-        res = given()
+        usersResponse = given()
                 .when()
                 .get();
-        res.then()
+        usersResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        jsonArray = new JSONArray(res.body().asString());
-        var jsonArrLenAfter = jsonArray.length();
-
-        Assert.assertEquals(jsonArrLenAfter, jsonArrLenBefore + 1);
+        usersJsonArray = new JSONArray(usersResponse.body().asString());
+        int usersLengthAfter = usersJsonArray.length();
+        Assert.assertEquals(usersLengthAfter, usersLengthBefore + 1);
     }
 }

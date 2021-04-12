@@ -1,7 +1,6 @@
 package pl.lodz.p.tks.restadapters.adapters;
 
 import pl.lodz.p.tks.applicationports.view.UserUseCase;
-import pl.lodz.p.tks.restadapters.data.user.UserRest;
 import pl.lodz.p.tks.restadapters.security.jwt.TokenProvider;
 import pl.lodz.p.tks.view.domainmodel.model.user.User;
 

@@ -43,267 +43,273 @@ public class MachineAdapterTest {
 
     @Test
     public void getMachinesTest() {
-        var res = given()
+        var machinesResponse = given()
                 .when()
                 .get();
-        res.then()
+        machinesResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonArray = new JSONArray(res.body().asString());
-        Assert.assertEquals(jsonArray.length(), 4);
+        var machinesJsonArray = new JSONArray(machinesResponse.body().asString());
+        Assert.assertEquals(machinesJsonArray.length(), 4);
     }
 
     @Test
     public void getMachineByIdTest() {
         String name = "Predator";
 
-        var res = given()
+        var machineByNameResponse = given()
                 .when()
                 .queryParam("machinename", name)
                 .get("/machine");
-        res.then()
+        machineByNameResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObj = new JSONObject(res.body().asString());
+        var machineByNameJson = new JSONObject(machineByNameResponse.body().asString());
 
-        String machineId = jsonObj.getString("id");
+        String machineId = machineByNameJson.getString("id");
 
-        var res2 = given()
+        var machineByIdResponse = given()
                 .when()
                 .get("/" + machineId);
-        res2.then()
+        machineByIdResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonObj2 = new JSONObject(res.body().asString());
-
-        Assert.assertEquals(jsonObj.getString("name"), jsonObj2.getString("name"));
+        var machineByIdJson = new JSONObject(machineByIdResponse.body().asString());
+        Assert.assertEquals(machineByNameJson.getString("name"), machineByIdJson.getString("name"));
     }
 
     @Test
     public void getMachineByNameTest() {
         String machineName = "Predator";
 
-        var res = given()
+        var machineResponse = given()
                 .when()
                 .queryParam("machinename", machineName)
                 .get("/machine");
-        res.then()
+        machineResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonObj = new JSONObject(res.body().asString());
-        Assert.assertEquals(jsonObj.get("name"), "Predator");
+        var machineJson = new JSONObject(machineResponse.body().asString());
+        Assert.assertEquals(machineJson.get("name"), "Predator");
     }
 
     @Test
     public void insertMachineGamingTest() {
-        var res = given()
+        var machinesResponse = given()
                 .when()
                 .get();
-        res.then()
+        machinesResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonArray = new JSONArray(res.body().asString());
-        var jsonArrLenBefore = jsonArray.length();
+        var machinesJsonArray = new JSONArray(machinesResponse.body().asString());
+        int machinesLengthBefore = machinesJsonArray.length();
 
         MachineGamingRest machineGamingRest = new MachineGamingRest("Nowa Maszynka", 1, 1024, 128, 3, 5);
 
-        res = given()
+        var machineResponse = given()
                 .contentType("application/json")
                 .body(new JSONObject(machineGamingRest).toString())
                 .when().post("/gaming");
-        res.then()
+        machineResponse.then()
                 .statusCode(200);
 
-        var jsonObj = new JSONObject(res.body().asString());
-        Assert.assertEquals(jsonObj.getString("name"), "Nowa Maszynka");
-        Assert.assertEquals(jsonObj.getInt("cores"), 1);
-        Assert.assertEquals(jsonObj.getInt("ramSize"), 1024);
-        Assert.assertEquals(jsonObj.getInt("hddSize"), 128);
-        Assert.assertEquals(jsonObj.getInt("gpuPower"), 3);
-        Assert.assertEquals(jsonObj.getInt("gpuVram"), 5);
+        var newMachineJson = new JSONObject(machineResponse.body().asString());
+        Assert.assertEquals(newMachineJson.getString("name"), "Nowa Maszynka");
+        Assert.assertEquals(newMachineJson.getInt("cores"), 1);
+        Assert.assertEquals(newMachineJson.getInt("ramSize"), 1024);
+        Assert.assertEquals(newMachineJson.getInt("hddSize"), 128);
+        Assert.assertEquals(newMachineJson.getInt("gpuPower"), 3);
+        Assert.assertEquals(newMachineJson.getInt("gpuVram"), 5);
 
-        res = given()
+        machinesResponse = given()
                 .when()
                 .get();
-        res.then()
+        machinesResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        jsonArray = new JSONArray(res.body().asString());
-        var jsonArrLenAfter = jsonArray.length();
-
-        Assert.assertEquals(jsonArrLenAfter, jsonArrLenBefore + 1);
+        machinesJsonArray = new JSONArray(machinesResponse.body().asString());
+        int machinesLengthAfter = machinesJsonArray.length();
+        Assert.assertEquals(machinesLengthAfter, machinesLengthBefore + 1);
     }
 
     @Test
     public void insertMachineWorkstationTest() {
-        var res = given()
+        var machinesResponse = given()
                 .when()
                 .get();
-        res.then()
+        machinesResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonArray = new JSONArray(res.body().asString());
-        var jsonArrLenBefore = jsonArray.length();
+        var machinesJsonArray = new JSONArray(machinesResponse.body().asString());
+        int machinesLengthBefore = machinesJsonArray.length();
 
         MachineWorkstation machineWorkstation = new MachineWorkstation("Nowa Maszynka", 1, 1024, 128, 128, 1, true);
 
-        res = given()
+        var machineResponse = given()
                 .contentType("application/json")
                 .body(new JSONObject(machineWorkstation).toString())
                 .when().post("/workstation");
-        res.then()
+        machineResponse.then()
                 .statusCode(200);
 
-        var jsonObj = new JSONObject(res.body().asString());
-        Assert.assertEquals(jsonObj.getString("name"), "Nowa Maszynka");
-        Assert.assertEquals(jsonObj.getInt("cores"), 1);
-        Assert.assertEquals(jsonObj.getInt("ramSize"), 1024);
-        Assert.assertEquals(jsonObj.getInt("hddSize"), 128);
-        Assert.assertEquals(jsonObj.getInt("ssdSize"), 128);
-        Assert.assertEquals(jsonObj.getInt("netCards"), 1);
-        Assert.assertTrue(jsonObj.getBoolean("raidSupport"));
+        var newMachineJson = new JSONObject(machineResponse.body().asString());
+        Assert.assertEquals(newMachineJson.getString("name"), "Nowa Maszynka");
+        Assert.assertEquals(newMachineJson.getInt("cores"), 1);
+        Assert.assertEquals(newMachineJson.getInt("ramSize"), 1024);
+        Assert.assertEquals(newMachineJson.getInt("hddSize"), 128);
+        Assert.assertEquals(newMachineJson.getInt("ssdSize"), 128);
+        Assert.assertEquals(newMachineJson.getInt("netCards"), 1);
+        Assert.assertTrue(newMachineJson.getBoolean("raidSupport"));
 
-        res = given()
+        machinesResponse = given()
                 .when()
                 .get();
-        res.then()
+        machinesResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        jsonArray = new JSONArray(res.body().asString());
-        var jsonArrLenAfter = jsonArray.length();
-
-        Assert.assertEquals(jsonArrLenAfter, jsonArrLenBefore + 1);
+        machinesJsonArray = new JSONArray(machinesResponse.body().asString());
+        int machinesLengthAfter = machinesJsonArray.length();
+        Assert.assertEquals(machinesLengthAfter, machinesLengthBefore + 1);
     }
 
     @Test
     public void modifyMachineGamingTest() {
         String machineName = "Predator";
 
-        var res = given()
+        var machineResponse = given()
                 .when()
                 .queryParam("machinename", machineName)
                 .get("/machine");
-        res.then()
+        machineResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObj = new JSONObject(res.body().asString());
-        String machineId = jsonObj.getString("id");
+        var machineJson = new JSONObject(machineResponse.body().asString());
+        String machineId = machineJson.getString("id");
 
         var updatedMachine = new MachineGamingRest(
-                jsonObj.getString("name"), jsonObj.getInt("cores") + 1, jsonObj.getInt("ramSize"), jsonObj.getInt("hddSize"),
-                jsonObj.getInt("gpuPower"), jsonObj.getInt("gpuVram"));
+                machineJson.getString("name"),
+                machineJson.getInt("cores") + 1,
+                machineJson.getInt("ramSize"),
+                machineJson.getInt("hddSize"),
+                machineJson.getInt("gpuPower"),
+                machineJson.getInt("gpuVram"));
+
         updatedMachine.setId(UUID.fromString(machineId));
         var updatedMachineJSON = new JSONObject(updatedMachine);
 
-//        System.out.println(updatedMachineJSON.toString()); // DEBUG
-        res = given()
+        machineResponse = given()
                 .contentType("application/json")
                 .body(updatedMachineJSON.toString())
                 .when()
                 .put("/gaming/" + machineId);
-        res.then()
+        machineResponse.then()
                 .statusCode(200);
 
-        res = given()
+        machineResponse = given()
                 .when()
                 .queryParam("machinename", machineName)
                 .get("/machine");
-        res.then()
+        machineResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObjUpdated = new JSONObject(res.body().asString());
 
-        Assert.assertEquals(jsonObjUpdated.getInt("cores"), jsonObj.getInt("cores") + 1);
+        var machineUpdatedJson = new JSONObject(machineResponse.body().asString());
+        Assert.assertEquals(machineUpdatedJson.getInt("cores"), machineJson.getInt("cores") + 1);
     }
 
     @Test
     public void modifyMachineWorkstationTest() {
         String machineName = "Developex";
 
-        var res = given()
+        var machineResponse = given()
                 .when()
                 .queryParam("machinename", machineName)
                 .get("/machine");
-        res.then()
+        machineResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObj = new JSONObject(res.body().asString());
-        String machineId = jsonObj.getString("id");
+        var machineJson = new JSONObject(machineResponse.body().asString());
+        String machineId = machineJson.getString("id");
 
         var updatedMachine = new MachineWorkstationRest(
-                jsonObj.getString("name"), jsonObj.getInt("cores") + 1, jsonObj.getInt("ramSize"), jsonObj.getInt("hddSize"),
-                jsonObj.getInt("ssdSize"), jsonObj.getInt("netCards"), jsonObj.getBoolean("raidSupport"));
+                machineJson.getString("name"),
+                machineJson.getInt("cores") + 1,
+                machineJson.getInt("ramSize"),
+                machineJson.getInt("hddSize"),
+                machineJson.getInt("ssdSize"),
+                machineJson.getInt("netCards"),
+                machineJson.getBoolean("raidSupport"));
+
         updatedMachine.setId(UUID.fromString(machineId));
         var updatedMachineJSON = new JSONObject(updatedMachine);
 
-//        System.out.println(updatedMachineJSON.toString()); // DEBUG
-        res = given()
+        machineResponse = given()
                 .contentType("application/json")
                 .body(updatedMachineJSON.toString())
                 .when()
                 .put("/workstation/" + machineId);
-        res.then()
+        machineResponse.then()
                 .statusCode(200);
 
-        res = given()
+        machineResponse = given()
                 .when()
                 .queryParam("machinename", machineName)
                 .get("/machine");
-        res.then()
+        machineResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObjUpdated = new JSONObject(res.body().asString());
 
-        Assert.assertEquals(jsonObjUpdated.getInt("cores"), jsonObj.getInt("cores") + 1);
+        var machineUpdatedJson = new JSONObject(machineResponse.body().asString());
+        Assert.assertEquals(machineUpdatedJson.getInt("cores"), machineJson.getInt("cores") + 1);
     }
 
     @Test
     public void removeMachineByIdTest() {
-        var res = given()
+        var machinesResponse = given()
                 .when()
                 .get();
-        res.then()
+        machinesResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        var jsonArr = new JSONArray(res.body().asString());
-        var lengthBefore = jsonArr.length();
+        var machinesJsonArray = new JSONArray(machinesResponse.body().asString());
+        int machinesLengthBefore = machinesJsonArray.length();
 
         String machineName = "Developex";
 
-        res = given()
+        machinesResponse = given()
                 .when()
                 .queryParam("machinename", machineName)
                 .get("/machine");
-        res.then()
+        machinesResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
-        var jsonObj = new JSONObject(res.body().asString());
-        String machineId = jsonObj.getString("id");
 
-        res = given()
+        var machineJson = new JSONObject(machinesResponse.body().asString());
+        String machineId = machineJson.getString("id");
+
+        machinesResponse = given()
                 .when()
                 .delete("/" + machineId);
-        res.then()
+        machinesResponse.then()
                 .statusCode(200);
 
-        res = given()
+        machinesResponse = given()
                 .when()
                 .get();
-        res.then()
+        machinesResponse.then()
                 .contentType("application/json")
                 .statusCode(200);
 
-        jsonArr = new JSONArray(res.body().asString());
-        var lengthAfter = jsonArr.length();
-
-        Assert.assertEquals(lengthBefore, lengthAfter + 1);
+        machinesJsonArray = new JSONArray(machinesResponse.body().asString());
+        int machinesLengthAfter = machinesJsonArray.length();
+        Assert.assertEquals(machinesLengthBefore, machinesLengthAfter + 1);
     }
 }

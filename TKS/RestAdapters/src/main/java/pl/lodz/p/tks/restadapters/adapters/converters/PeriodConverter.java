@@ -1,6 +1,5 @@
 package pl.lodz.p.tks.restadapters.adapters.converters;
 
-
 import pl.lodz.p.tks.restadapters.data.rent.PeriodRest;
 import pl.lodz.p.tks.view.domainmodel.model.rent.Period;
 

@@ -4,16 +4,22 @@ import pl.lodz.p.tks.applicationports.view.MachineUseCase;
 import pl.lodz.p.tks.restadapters.adapters.converters.MachineConverter;
 import pl.lodz.p.tks.restadapters.data.machine.MachineGamingRest;
 import pl.lodz.p.tks.restadapters.data.machine.MachineWorkstationRest;
-import pl.lodz.p.tks.restadapters.data.user.RoleRest;
 import pl.lodz.p.tks.view.domainmodel.model.machine.Machine;
-import pl.lodz.p.tks.view.domainmodel.model.machine.MachineGaming;
-import pl.lodz.p.tks.view.domainmodel.model.machine.MachineWorkstation;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -23,9 +29,6 @@ import java.util.UUID;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
-import static pl.lodz.p.tks.restadapters.data.user.RoleRest.Admin;
-import static pl.lodz.p.tks.restadapters.data.user.RoleRest.Client;
-import static pl.lodz.p.tks.restadapters.data.user.RoleRest.Owner;
 
 @Path("/machines")
 @Consumes(APPLICATION_JSON)
@@ -73,15 +76,17 @@ public class MachineAdapter {
 
     @PUT
     @Path("/gaming/{id}")
-    public Response updateMachineGaming(@PathParam("id") UUID machineId,
-                                        @NotNull @Valid MachineGamingRest machineGaming) {
+    public Response updateMachineGaming(
+            @PathParam("id") UUID machineId,
+            @NotNull @Valid MachineGamingRest machineGaming) {
         return updateMachine(machineId, MachineConverter.toDomainModel(machineGaming));
     }
 
     @PUT
     @Path("/workstation/{id}")
-    public Response updateMachineWorkstation(@PathParam("id") UUID machineId,
-                                             @NotNull @Valid MachineWorkstationRest machineWorkstation) {
+    public Response updateMachineWorkstation(
+            @PathParam("id") UUID machineId,
+            @NotNull @Valid MachineWorkstationRest machineWorkstation) {
         return updateMachine(machineId, MachineConverter.toDomainModel(machineWorkstation));
     }
 

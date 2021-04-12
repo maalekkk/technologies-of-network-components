@@ -16,7 +16,6 @@ import static pl.lodz.p.tks.restadapters.adapters.converters.MachineConverter.fr
 import static pl.lodz.p.tks.restadapters.adapters.converters.MachineConverter.toDomainModel;
 import static pl.lodz.p.tks.restadapters.adapters.converters.TestUtils.compareMachines;
 
-
 public class MachineConverterTest {
 
     private Machine machineGaming;

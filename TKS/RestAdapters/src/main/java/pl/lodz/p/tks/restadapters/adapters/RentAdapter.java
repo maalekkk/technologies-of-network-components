@@ -16,7 +16,6 @@ import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static pl.lodz.p.tks.restadapters.data.user.RoleRest.CLIENT;
-import static pl.lodz.p.tks.restadapters.data.user.RoleRest.Client;
 
 @Path("/rents")
 @Consumes(APPLICATION_JSON)

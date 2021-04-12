@@ -19,7 +19,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class TestUtils {
-    static <T> boolean compareObjectsPropertiesByName(Object obj1, Object obj2, Class<T> type, String propertyName) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    static <T> boolean compareObjectsPropertiesByName(Object obj1, Object obj2, Class<T> type, String propertyName)
+            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method getNameM1 = obj1.getClass().getMethod(propertyName);
         Method getNameM2 = obj2.getClass().getMethod(propertyName);
 
@@ -28,7 +29,8 @@ public class TestUtils {
         return nameM1.equals(nameM2);
     }
 
-    static <T> T getObjectProperty(Object obj, Class<T> type, String propertyName) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    static <T> T getObjectProperty(Object obj, Class<T> type, String propertyName)
+            throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         Method method = obj.getClass().getMethod(propertyName);
         return type.cast(method.invoke(obj));
     }
@@ -47,16 +49,16 @@ public class TestUtils {
             notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getRamSize");
             notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getHddSize");
 
-            if(machine1 instanceof MachineGaming || machine1 instanceof MachineGamingEnt) {
+            if (machine1 instanceof MachineGaming || machine1 instanceof MachineGamingEnt) {
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getGpuPower");
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getGpuVram");
-            } else if(machine1 instanceof MachineWorkstation || machine1 instanceof MachineWorkstationRest) {
+            } else if (machine1 instanceof MachineWorkstation || machine1 instanceof MachineWorkstationRest) {
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getSsdSize");
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Integer.class, "getNetCards");
                 notEqual |= !compareObjectsPropertiesByName(machine1, machine2, Boolean.class, "getRaidSupport");
             }
 
-            if(notEqual) {
+            if (notEqual) {
                 return false;
             }
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -78,7 +80,7 @@ public class TestUtils {
             boolean notEqual = !compareObjectsPropertiesByName(period1, period2, LocalDateTime.class, "getStartDate");
             notEqual |= !compareObjectsPropertiesByName(period1, period2, LocalDateTime.class, "getEndDate");
 
-            if(notEqual) {
+            if (notEqual) {
                 return false;
             }
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
@@ -101,7 +103,7 @@ public class TestUtils {
             notEqual |= !compareObjectsPropertiesByName(user1, user2, UUID.class, "getId");
             notEqual |= !compareObjectsPropertiesByName(user1, user2, String.class, "getFullname");
 
-            if(notEqual) {
+            if (notEqual) {
                 return false;
             }
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
@@ -121,7 +123,7 @@ public class TestUtils {
 
         try {
             boolean notEqual = !compareObjectsPropertiesByName(rent1, rent2, UUID.class, "getId");
-            if(rent1 instanceof Rent) {
+            if (rent1 instanceof Rent) {
                 Period p1 = getObjectProperty(rent1, Period.class, "getPeriod");
                 Period p2 = getObjectProperty(rent2, Period.class, "getPeriod");
                 notEqual |= !comparePeriods(p1, p2);
@@ -148,7 +150,7 @@ public class TestUtils {
                 notEqual |= !compareMachines(m1, m2);
             }
 
-            if(notEqual) {
+            if (notEqual) {
                 return false;
             }
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {

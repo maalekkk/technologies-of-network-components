@@ -3,8 +3,6 @@ package pl.lodz.p.tks.restadapters.adapters.converters;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import pl.lodz.p.tks.repositoriesadapters.data.user.RoleEnt;
-import pl.lodz.p.tks.repositoriesadapters.data.user.UserEnt;
 import pl.lodz.p.tks.restadapters.data.machine.MachineGamingRest;
 import pl.lodz.p.tks.restadapters.data.machine.MachineRest;
 import pl.lodz.p.tks.restadapters.data.rent.PeriodRest;
@@ -29,34 +27,25 @@ public class RentConverterTest {
     private Rent rent;
     private RentRest rentRest;
 
-    private Machine machineGaming;
-    private MachineRest machineGamingRest;
-
-    private Period period;
-    private PeriodRest periodRest;
-
-    private User user;
-    private UserRest userRest;
-
     @Before
     public void init() {
-        machineGaming = new MachineGaming("Acer x21y37", 4, 200, 100, 4, 4);
-        machineGamingRest = new MachineGamingRest("Acer x21y37", 4, 200, 100, 4, 4);
+        Machine machineGaming = new MachineGaming("Acer x21y37", 4, 200, 100, 4, 4);
+        MachineRest machineGamingRest = new MachineGamingRest("Acer x21y37", 4, 200, 100, 4, 4);
 
         UUID uuid = UUID.randomUUID();
         machineGaming.setId(uuid);
         machineGamingRest.setId(uuid);
 
-        period = new Period();
+        Period period = new Period();
         period.setStartDate(LocalDateTime.now());
         period.setEndDate(LocalDateTime.MAX);
 
-        periodRest = new PeriodRest();
+        PeriodRest periodRest = new PeriodRest();
         periodRest.setStartDate(period.getStartDate());
         periodRest.setEndDate(period.getEndDate());
 
-        user = new User("Bolek", "Bolek", "Bolesław Chrobry", true, Collections.singleton(Role.Client));
-        userRest = new UserRest("Bolek", "Bolek", "Bolesław Chrobry", true, Collections.singleton(RoleRest.Client));
+        User user = new User("Bolek", "Bolek", "Bolesław Chrobry", true, Collections.singleton(Role.Client));
+        UserRest userRest = new UserRest("Bolek", "Bolek", "Bolesław Chrobry", true, Collections.singleton(RoleRest.Client));
 
         UUID userId = UUID.randomUUID();
         user.setId(userId);
