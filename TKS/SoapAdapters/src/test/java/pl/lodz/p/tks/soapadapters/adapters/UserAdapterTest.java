@@ -36,7 +36,7 @@ public class UserAdapterTest {
     @BeforeClass
     public static void setupClass() throws MalformedURLException {
         app.start();
-        URL wsdlURL = new URL("http://desktop-sosn1q8:" + app.getMappedPort(8080) + "/Soap/UserAdapterService");
+        URL wsdlURL = new URL("http://localhost:" + app.getMappedPort(8080) + "/Soap/UserAdapterService");
         UserAdapterService userAdapterService = new UserAdapterService(wsdlURL);
         userAdapterPort = userAdapterService.getUserAdapterPort();
     }
