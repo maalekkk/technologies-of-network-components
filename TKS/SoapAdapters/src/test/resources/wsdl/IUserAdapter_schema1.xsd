@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://adapters.soapadapters.tks.p.lodz.pl/" xmlns:tns="http://adapters.soapadapters.tks.p.lodz.pl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="addUser" type="tns:addUser"/>
+
+  <xs:element name="addUserResponse" type="tns:addUserResponse"/>
+
+  <xs:element name="getName" type="tns:getName"/>
+
+  <xs:element name="getNameResponse" type="tns:getNameResponse"/>
+
+  <xs:element name="getUserById" type="tns:getUserById"/>
+
+  <xs:element name="getUserByIdResponse" type="tns:getUserByIdResponse"/>
+
+  <xs:element name="getUserByUsername" type="tns:getUserByUsername"/>
+
+  <xs:element name="getUserByUsernameResponse" type="tns:getUserByUsernameResponse"/>
+
+  <xs:element name="getUsers" type="tns:getUsers"/>
+
+  <xs:element name="getUsersResponse" type="tns:getUsersResponse"/>
+
+  <xs:element name="updateUserById" type="tns:updateUserById"/>
+
+  <xs:element name="updateUserByIdResponse" type="tns:updateUserByIdResponse"/>
+
+  <xs:complexType name="getName">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getNameResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getUserById">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getUserByIdResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:userSoap" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="userSoap">
+    <xs:complexContent>
+      <xs:extension base="tns:entitySoap">
+        <xs:sequence>
+          <xs:element name="enabled" type="xs:boolean"/>
+          <xs:element name="fullname" type="xs:string" minOccurs="0"/>
+          <xs:element name="password" type="xs:string" minOccurs="0"/>
+          <xs:element name="roles" type="tns:roleSoap" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          <xs:element name="username" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="entitySoap" abstract="true">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addUser">
+    <xs:sequence>
+      <xs:element name="arg0" type="tns:userSoap" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="addUserResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getUsers">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getUsersResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:userSoap" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getUserByUsername">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getUserByUsernameResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:userSoap" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="updateUserById">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+      <xs:element name="arg1" type="tns:userSoap" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="updateUserByIdResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:simpleType name="roleSoap">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Client"/>
+      <xs:enumeration value="Admin"/>
+      <xs:enumeration value="Owner"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
