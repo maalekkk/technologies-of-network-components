@@ -1,8 +1,8 @@
 package pl.lodz.p.tks.view.controller.user;
 
-import pl.lodz.p.tks.applicationports.view.UserUseCase;
-import pl.lodz.p.tks.view.domainmodel.model.user.Role;
-import pl.lodz.p.tks.view.domainmodel.model.user.User;
+import pl.lodz.p.tks.user.core.domainmodel.user.Role;
+import pl.lodz.p.tks.user.core.domainmodel.user.User;
+import pl.lodz.p.tks.user.applicationports.view.UserUseCase;
 import pl.lodz.p.tks.view.validator.unique.username.UniqueUsername;
 
 import javax.faces.view.ViewScoped;

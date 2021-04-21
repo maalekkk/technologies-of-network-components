@@ -1,10 +1,10 @@
 package pl.lodz.p.tks.view.controller.rent;
 
-import pl.lodz.p.tks.applicationports.view.MachineUseCase;
-import pl.lodz.p.tks.applicationports.view.RentUseCase;
-import pl.lodz.p.tks.applicationports.view.UserUseCase;
-import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
-import pl.lodz.p.tks.view.domainmodel.model.user.Role;
+import pl.lodz.p.tks.rent.applicationports.view.MachineUseCase;
+import pl.lodz.p.tks.rent.applicationports.view.RentUseCase;
+import pl.lodz.p.tks.rent.core.domainmodel.rent.Rent;
+import pl.lodz.p.tks.user.core.domainmodel.user.Role;
+import pl.lodz.p.tks.user.applicationports.view.UserUseCase;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -31,10 +31,10 @@ public class RentController implements Serializable
     private UserUseCase userUseCase;
 
     @PostConstruct
-    private void init()
-    {
-        rent.setUser(userUseCase.getCurrentUser());
-    }
+//    private void init()
+//    {
+//        rent.setUser(userUseCase.getCurrentUser());
+//    }
 
     public String initRent()
     {

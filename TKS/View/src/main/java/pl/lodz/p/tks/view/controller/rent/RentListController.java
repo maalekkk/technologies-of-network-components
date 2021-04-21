@@ -1,11 +1,12 @@
 package pl.lodz.p.tks.view.controller.rent;
 
 
-import pl.lodz.p.tks.applicationports.view.RentUseCase;
-import pl.lodz.p.tks.applicationports.view.UserUseCase;
-import pl.lodz.p.tks.view.domainmodel.model.rent.Rent;
-import pl.lodz.p.tks.view.domainmodel.model.rent.Status;
-import pl.lodz.p.tks.view.domainmodel.model.user.Role;
+import pl.lodz.p.tks.rent.applicationports.view.RentUseCase;
+import pl.lodz.p.tks.rent.core.domainmodel.rent.Rent;
+import pl.lodz.p.tks.rent.core.domainmodel.rent.Status;
+import pl.lodz.p.tks.user.core.domainmodel.user.Role;
+import pl.lodz.p.tks.user.applicationports.view.UserUseCase;
+import pl.lodz.p.tks.user.core.domainmodel.user.User;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -36,7 +37,7 @@ public class RentListController implements Serializable
     {
         if (userUseCase.getCurrentRole() != Role.Owner)
         {
-            rents = rentUseCase.findRentsByUser(userUseCase.getCurrentUser());
+//            rents = rentUseCase.findRentsByUser(userUseCase.getCurrentUser());
         }
         else
         {

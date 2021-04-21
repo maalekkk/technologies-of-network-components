@@ -1,12 +1,10 @@
 package pl.lodz.p.tks.view.util;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 
-@ApplicationScoped
 public class DateTimeProvider implements Serializable
 {
     public LocalDateTime now()

@@ -11,18 +11,18 @@
     <default-context-path>/VMRentalWebApp</default-context-path>
 
     <!-- SECURITY ROLES -->
-    <pl.lodz.p.tks.restadapters.security-role>
+    <pl.lodz.p.tks.user.restadapters.security-role>
         <role-name>Client</role-name>
-    </pl.lodz.p.tks.restadapters.security-role>
-    <pl.lodz.p.tks.restadapters.security-role>
+    </pl.lodz.p.tks.user.restadapters.security-role>
+    <pl.lodz.p.tks.user.restadapters.security-role>
         <role-name>Admin</role-name>
-    </pl.lodz.p.tks.restadapters.security-role>
-    <pl.lodz.p.tks.restadapters.security-role>
+    </pl.lodz.p.tks.user.restadapters.security-role>
+    <pl.lodz.p.tks.user.restadapters.security-role>
         <role-name>Owner</role-name>
-    </pl.lodz.p.tks.restadapters.security-role>
+    </pl.lodz.p.tks.user.restadapters.security-role>
 
     <!-- SECURITY CONSTRAINTS -->
-    <pl.lodz.p.tks.restadapters.security-constraint>
+    <pl.lodz.p.tks.user.restadapters.security-constraint>
         <web-resource-collection>
             <web-resource-name>Secured pages</web-resource-name>
             <url-pattern>/*</url-pattern>
@@ -30,8 +30,8 @@
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-    </pl.lodz.p.tks.restadapters.security-constraint>
-    <pl.lodz.p.tks.restadapters.security-constraint>
+    </pl.lodz.p.tks.user.restadapters.security-constraint>
+    <pl.lodz.p.tks.user.restadapters.security-constraint>
         <web-resource-collection>
             <web-resource-name>Authenticated pages</web-resource-name>
             <url-pattern>/dashboard/*</url-pattern>
@@ -41,8 +41,8 @@
             <role-name>Admin</role-name>
             <role-name>Owner</role-name>
         </auth-constraint>
-    </pl.lodz.p.tks.restadapters.security-constraint>
-    <pl.lodz.p.tks.restadapters.security-constraint>
+    </pl.lodz.p.tks.user.restadapters.security-constraint>
+    <pl.lodz.p.tks.user.restadapters.security-constraint>
         <web-resource-collection>
             <web-resource-name>Admin pages</web-resource-name>
             <url-pattern>/dashboard/admin/*</url-pattern>
@@ -50,8 +50,8 @@
         <auth-constraint>
             <role-name>Admin</role-name>
         </auth-constraint>
-    </pl.lodz.p.tks.restadapters.security-constraint>
-    <pl.lodz.p.tks.restadapters.security-constraint>
+    </pl.lodz.p.tks.user.restadapters.security-constraint>
+    <pl.lodz.p.tks.user.restadapters.security-constraint>
         <web-resource-collection>
             <web-resource-name>Owner pages</web-resource-name>
             <url-pattern>/dashboard/owner/*</url-pattern>
@@ -59,8 +59,8 @@
         <auth-constraint>
             <role-name>Owner</role-name>
         </auth-constraint>
-    </pl.lodz.p.tks.restadapters.security-constraint>
-    <pl.lodz.p.tks.restadapters.security-constraint>
+    </pl.lodz.p.tks.user.restadapters.security-constraint>
+    <pl.lodz.p.tks.user.restadapters.security-constraint>
         <web-resource-collection>
             <web-resource-name>Show VMs page</web-resource-name>
             <url-pattern>/dashboard/show-vms.xhtml</url-pattern>
@@ -69,8 +69,8 @@
             <role-name>Client</role-name>
             <role-name>Owner</role-name>
         </auth-constraint>
-    </pl.lodz.p.tks.restadapters.security-constraint>
-    <pl.lodz.p.tks.restadapters.security-constraint>
+    </pl.lodz.p.tks.user.restadapters.security-constraint>
+    <pl.lodz.p.tks.user.restadapters.security-constraint>
         <web-resource-collection>
             <web-resource-name>Show Rents page</web-resource-name>
             <url-pattern>/dashboard/show-rents.xhtml</url-pattern>
@@ -79,8 +79,8 @@
             <role-name>Client</role-name>
             <role-name>Owner</role-name>
         </auth-constraint>
-    </pl.lodz.p.tks.restadapters.security-constraint>
-    <pl.lodz.p.tks.restadapters.security-constraint>
+    </pl.lodz.p.tks.user.restadapters.security-constraint>
+    <pl.lodz.p.tks.user.restadapters.security-constraint>
         <web-resource-collection>
             <web-resource-name>Rent VM page</web-resource-name>
             <url-pattern>/dashboard/rent-vm.xhtml</url-pattern>
@@ -88,8 +88,8 @@
         <auth-constraint>
             <role-name>Client</role-name>
         </auth-constraint>
-    </pl.lodz.p.tks.restadapters.security-constraint>
-    <pl.lodz.p.tks.restadapters.security-constraint>
+    </pl.lodz.p.tks.user.restadapters.security-constraint>
+    <pl.lodz.p.tks.user.restadapters.security-constraint>
         <web-resource-collection>
             <web-resource-name>Rental details page</web-resource-name>
             <url-pattern>/dashboard/rental-details.xhtml</url-pattern>
@@ -98,7 +98,7 @@
             <role-name>Client</role-name>
             <role-name>Owner</role-name>
         </auth-constraint>
-    </pl.lodz.p.tks.restadapters.security-constraint>
+    </pl.lodz.p.tks.user.restadapters.security-constraint>
 
     <!-- FACES SERVLET MAPPING -->
     <servlet>

@@ -1,6 +1,6 @@
 package pl.lodz.p.tks.view.validator.unique.username;
 
-import pl.lodz.p.tks.applicationports.view.UserUseCase;
+import pl.lodz.p.tks.user.applicationports.view.UserUseCase;
 
 import javax.inject.Inject;
 import javax.validation.ConstraintValidator;
