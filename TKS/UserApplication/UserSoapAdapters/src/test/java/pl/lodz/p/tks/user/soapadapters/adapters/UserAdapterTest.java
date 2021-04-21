@@ -10,8 +10,9 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.ImageFromDockerfile;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import pl.lodz.p.tks.user.soapadapters.client.UserAdapterService;
 import pl.lodz.p.tks.user.soapadapters.client.UserSoap;
+import pl.lodz.p.tks.user.soapadapters.client.UserAdapterService;
+import pl.lodz.p.tks.user.soapadapters.client.IUserAdapter;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,7 +21,7 @@ import java.nio.file.Path;
 @Testcontainers
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserAdapterTest {
-    static pl.lodz.p.tks.user.soapadapters.client.IUserAdapter userAdapterPort;
+    static IUserAdapter userAdapterPort;
 
     @Container
     private static final GenericContainer app = new GenericContainer(
@@ -36,8 +37,8 @@ public class UserAdapterTest {
     public static void setupClass() throws MalformedURLException {
         app.start();
         URL wsdlURL = new URL("http://localhost:" + app.getMappedPort(8080) + "/Soap/UserAdapterService");
-        UserAdapterService userAdapterService = new UserAdapterService(wsdlURL);
-        userAdapterPort = userAdapterService.getUserAdapterPort();
+        UserAdapterService userAdapter = new UserAdapterService(wsdlURL);
+        userAdapterPort = userAdapter.getUserAdapterPort();
     }
 
     @Test
