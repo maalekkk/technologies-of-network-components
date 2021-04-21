@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &amp;lt;complexContent&amp;gt;
  *     &amp;lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&amp;gt;
  *       &amp;lt;sequence&amp;gt;
- *         &amp;lt;element name="arg0" type="{http://adapters.soapadapters.tks.p.lodz.pl/}userSoap" minOccurs="0"/&amp;gt;
+ *         &amp;lt;element name="arg0" type="{http://adapters.soapadapters.user.tks.p.lodz.pl/}userSoap" minOccurs="0"/&amp;gt;
  *       &amp;lt;/sequence&amp;gt;
  *     &amp;lt;/restriction&amp;gt;
  *   &amp;lt;/complexContent&amp;gt;

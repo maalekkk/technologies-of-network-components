@@ -17,14 +17,14 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "UserAdapterService", targetNamespace = "http://adapters.soapadapters.tks.p.lodz.pl/", wsdlLocation = "http://localhost:8080/Soap/UserAdapterService?wsdl")
+@WebServiceClient(name = "UserAdapterService", targetNamespace = "http://adapters.soapadapters.user.tks.p.lodz.pl/", wsdlLocation = "http://localhost:8080/Soap/UserAdapterService?wsdl")
 public class UserAdapterService
     extends Service
 {
 
     private final static URL USERADAPTERSERVICE_WSDL_LOCATION;
     private final static WebServiceException USERADAPTERSERVICE_EXCEPTION;
-    private final static QName USERADAPTERSERVICE_QNAME = new QName("http://adapters.soapadapters.tks.p.lodz.pl/", "UserAdapterService");
+    private final static QName USERADAPTERSERVICE_QNAME = new QName("http://adapters.soapadapters.user.tks.p.lodz.pl/", "UserAdapterService");
 
     static {
         URL url = null;
@@ -69,7 +69,7 @@ public class UserAdapterService
      */
     @WebEndpoint(name = "UserAdapterPort")
     public IUserAdapter getUserAdapterPort() {
-        return super.getPort(new QName("http://adapters.soapadapters.tks.p.lodz.pl/", "UserAdapterPort"), IUserAdapter.class);
+        return super.getPort(new QName("http://adapters.soapadapters.user.tks.p.lodz.pl/", "UserAdapterPort"), IUserAdapter.class);
     }
 
     /**
@@ -81,7 +81,7 @@ public class UserAdapterService
      */
     @WebEndpoint(name = "UserAdapterPort")
     public IUserAdapter getUserAdapterPort(WebServiceFeature... features) {
-        return super.getPort(new QName("http://adapters.soapadapters.tks.p.lodz.pl/", "UserAdapterPort"), IUserAdapter.class, features);
+        return super.getPort(new QName("http://adapters.soapadapters.user.tks.p.lodz.pl/", "UserAdapterPort"), IUserAdapter.class, features);
     }
 
     private static URL __getWsdlLocation() {
