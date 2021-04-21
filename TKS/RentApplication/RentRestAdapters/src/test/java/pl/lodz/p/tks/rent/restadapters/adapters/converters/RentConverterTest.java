@@ -44,8 +44,8 @@ public class RentConverterTest {
         periodRest.setStartDate(period.getStartDate());
         periodRest.setEndDate(period.getEndDate());
 
-        User user = new User("Bolek", "Bolek", "Bolesław Chrobry", true, Collections.singleton(Role.Client));
-        UserRest userRest = new UserRest("Bolek", "Bolek", "Bolesław Chrobry", true, Collections.singleton(RoleRest.Client));
+        User user = new User("Bolek", "Bolesław Chrobry", true, Collections.singleton(Role.Client));
+        UserRest userRest = new UserRest("Bolek", "Bolesław Chrobry", true, Collections.singleton(RoleRest.Client));
 
         UUID userId = UUID.randomUUID();
         user.setId(userId);

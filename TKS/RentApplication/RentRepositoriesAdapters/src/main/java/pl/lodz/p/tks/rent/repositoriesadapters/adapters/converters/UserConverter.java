@@ -12,14 +12,14 @@ public class UserConverter {
 
     public static User toDomainModel(UserEnt user) {
         User userDomainModel = new User(
-                user.getUsername(), user.getPassword(), user.getFullname(), user.isEnabled(), rolesToDomainModel(user.getRoles()));
+                user.getUsername(), user.getFullname(), user.isEnabled(), rolesToDomainModel(user.getRoles()));
         userDomainModel.setId(user.getId());
         return userDomainModel;
     }
 
     public static UserEnt fromDomainModel(User user) {
         UserEnt userRepository = new UserEnt(
-                user.getUsername(), user.getPassword(), user.getFullname(), user.isEnabled(), rolesFromDomainModel(user.getRoles()));
+                user.getUsername(), user.getFullname(), user.isEnabled(), rolesFromDomainModel(user.getRoles()));
         userRepository.setId(user.getId());
         return userRepository;
     }

@@ -16,8 +16,6 @@ public class User extends Entity {
     @NotBlank
     private String username;
 
-    private String password;
-
     @NotBlank
     private String fullname;
 
@@ -30,10 +28,9 @@ public class User extends Entity {
         this.roles.add(Role.Client);
     }
 
-    public User(String username, String password, String fullname, boolean enabled, @NotEmpty Set<Role> roles) {
+    public User(String username, String fullname, boolean enabled, @NotEmpty Set<Role> roles) {
         this.username = username;
         this.fullname = fullname;
-        this.password = password;
         this.enabled = enabled;
         this.roles = roles;
     }
@@ -52,15 +49,6 @@ public class User extends Entity {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
-    }
-
-    @JsonbTransient
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public boolean isEnabled() {

@@ -16,10 +16,6 @@ public class UserRest extends EntityRest {
     @NotBlank
     private String username;
 
-    @Size(min = 8, max = 30)
-    @NotBlank
-    private String password;
-
     @NotBlank
     private String fullname;
 
@@ -32,10 +28,9 @@ public class UserRest extends EntityRest {
         this.roles.add(RoleRest.Client);
     }
 
-    public UserRest(String username, String password, String fullname, boolean enabled, @NotEmpty Set<RoleRest> roles) {
+    public UserRest(String username, String fullname, boolean enabled, @NotEmpty Set<RoleRest> roles) {
         this.username = username;
         this.fullname = fullname;
-        this.password = password;
         this.enabled = enabled;
         this.roles = roles;
     }
@@ -54,15 +49,6 @@ public class UserRest extends EntityRest {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
-    }
-
-    @JsonbTransient
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public boolean isEnabled() {

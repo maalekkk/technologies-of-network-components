@@ -53,7 +53,7 @@ public class RentServiceTest {
 
         MachineGaming machineGaming = new MachineGaming("Jaro", 2137, 12, 32, 32, 32);
         machineGaming.setId(UUID.randomUUID());
-        User user = new User("pawlacz", "pawlacz", "test", true, Collections.singleton(Role.Client));
+        User user = new User("pawlacz", "test", true, Collections.singleton(Role.Client));
         user.setId(UUID.randomUUID());
 
         Period period = new Period();
@@ -104,7 +104,7 @@ public class RentServiceTest {
 
         MachineGaming machineGaming = new MachineGaming("Acer x69", 2137, 1, 33, 32, 32);
         machineGaming.setId(UUID.randomUUID());
-        User user = new User("nowy", "nowy", "Janusz Pudzian", true, Collections.singleton(Role.Client));
+        User user = new User("nowy", "Janusz Pudzian", true, Collections.singleton(Role.Client));
         user.setId(UUID.randomUUID());
 
         Period period = new Period();
