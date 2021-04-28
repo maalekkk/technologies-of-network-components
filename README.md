@@ -1,4 +1,4 @@
-# TKS - Technologie Komponentów Sieciowych (Network Component Technologies)
+# Technologies of Network Components
 
 ### Members
 | Full name | ID | Github |
@@ -11,6 +11,9 @@ The aim of the course is to get to know and use the technology of components for
 
 ### Subject
 Subject: Network Component Technologies
+
+### Programming language
+Java
 
 ### Date
 2021
